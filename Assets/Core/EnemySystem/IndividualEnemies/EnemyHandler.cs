@@ -7,6 +7,10 @@ public class EnemyHandler : MonoBehaviour
 {
     [field: SerializeField]
     internal EnemySO EnemySO;
+    [field: SerializeField]
+    private GameObject ResourceObject;
+    [field: SerializeField]
+    private DetectorColliderBehaviour detector;
     internal Transform AttackPoint;
     internal bool isEnabled = false;
     internal bool isAttacking = false;
@@ -14,8 +18,10 @@ public class EnemyHandler : MonoBehaviour
     private EnemyHealthHandler healthHandler;
     private NavMeshAgent agent;
     private Transform playerTransform;
+    private Transform currentTarget;
     private GameObject enemyVisual;
     private GeneralPurposeEventBehaviour AttackEvent;
+    private bool isDead = false;
     void Start()
     {
         if (EnemySO == null)
@@ -36,6 +42,17 @@ public class EnemyHandler : MonoBehaviour
             }
         }
 
+        if (gameObject.TryGetComponent(out BoxCollider collider))
+        {
+            collider.size = EnemySO.hitboxInfo.size;
+            collider.center = EnemySO.hitboxInfo.offset;
+        } 
+        if (gameObject.TryGetComponent(out SphereCollider collider2))
+        {
+            collider2.radius = EnemySO.hitboxInfo.size.x;
+            collider2.center = EnemySO.hitboxInfo.offset;
+        } 
+
         healthHandler = GetComponent<EnemyHealthHandler>();
         healthHandler.Initialize(EnemySO.MaxHealth);
         healthHandler.OnDeath += OnDeath;
@@ -47,18 +64,25 @@ public class EnemyHandler : MonoBehaviour
         agent.stoppingDistance = EnemySO.StoppingDistance;
 
         isEnabled = true;
+
+        currentTarget = playerTransform;
     }
     void Update()
     {
         if (isEnabled)
         {
+            GameObject? newtarget = detector.GetFirstEnemy();
+            if (newtarget != null && newtarget.transform != currentTarget)
+            {
+                currentTarget = newtarget.transform;
+            }
             if (!isAttacking)
             {        
-                if (Vector3.Distance(transform.position,playerTransform.position) > EnemySO.AttackDistance)
+                if (Vector3.Distance(transform.position,currentTarget.position) > EnemySO.AttackDistance)
                 {
-                    if (Vector3.Distance(agent.destination,playerTransform.position) > 0.1f)
+                    if (Vector3.Distance(agent.destination,currentTarget.position) > 0.1f)
                     {
-                        agent.SetDestination(playerTransform.position);                          
+                        agent.SetDestination(currentTarget.position);                          
                     }                  
                 } else
                 {
@@ -79,7 +103,10 @@ public class EnemyHandler : MonoBehaviour
     }
     void OnDeath()
     {
+        if (isDead) return;
+        isDead = true;
         isEnabled = false;
+        Instantiate(ResourceObject,transform.position+Vector3.up,Quaternion.identity);
         StartCoroutine(DeathEnumerator());
     }
     IEnumerator AttackEnumerator()
@@ -109,11 +136,13 @@ public class EnemyHandler : MonoBehaviour
     }
     internal void Attack()
     {
-        if (EnemySO.AttackHitboxSize != null && AttackPoint != null)
+        if (EnemySO.AttackHurtboxSize != null && AttackPoint != null)
         {
-            if (Physics.BoxCast(AttackPoint.position,EnemySO.AttackHitboxSize/2,AttackPoint.forward,out RaycastHit hit, AttackPoint.rotation, EnemySO.AttackHitboxSize.z))
+            Collider[] hits = Physics.OverlapBox(AttackPoint.position,EnemySO.AttackHurtboxSize,AttackPoint.rotation);
+            foreach (Collider hit in hits)
             {
-                if (hit.transform == playerTransform && hit.transform.gameObject.TryGetComponent(out IDamagable damagable))
+                Debug.Log("Checking.");
+                if (hit.CompareTag("Player") && hit.transform.gameObject.TryGetComponent(out IDamagable damagable))
                 {
                     Debug.Log("Damaged!");
                     damagable.TryDamage(EnemySO.AttackDamage);

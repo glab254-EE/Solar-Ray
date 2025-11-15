@@ -13,7 +13,7 @@ public class BuilderSO : ATool
     [field: SerializeField]
     internal float BuildMaxDistance { get; private set; }
     [field: SerializeField]
-    internal string BuildAreasTag { get; set; } = "Build Areas";
+    internal string BuildAreasTag { get; set; } = "BuildAreas";
     [field: SerializeField]
     internal override string ToolName { get; set; }
     [field: SerializeField]
@@ -26,19 +26,16 @@ public class BuilderSO : ATool
 
     internal override void OnLeftMouseButtonPresss(GameObject PlayerFirearmsOriginObject, GameObject toolObject)
     {
-        bool CanBuild = true;
-        if (CanBuild)
+        Camera tempcam = Camera.main;
+        Transform camera =tempcam.transform;
+        if (Physics.Raycast(new Ray(camera.position, camera.forward), out RaycastHit hit, BuildMaxDistance))
         {
-            Transform camera = Camera.main.transform;
-            if (Physics.Raycast(new Ray(camera.position, camera.forward), out RaycastHit hit, BuildMaxDistance))
+            if (hit.collider.gameObject != null && hit.collider.gameObject.CompareTag(BuildAreasTag))
             {
-                if (hit.collider.gameObject != null && hit.collider.gameObject.CompareTag(BuildAreasTag))
-                {
-                    Vector3 forward = camera.forward;
-                    Vector3 directionWithoutYAxis = new Vector3(forward.x, 0, forward.z).normalized;
-                    BuildingManager.instance.TryPlaceObject(builtObject, hit.point, Quaternion.LookRotation(directionWithoutYAxis));
-                }
-            }        
-        }
+                Vector3 forward = camera.forward;
+                Vector3 directionWithoutYAxis = new Vector3(forward.x, 0, forward.z).normalized;
+                bool successs = BuildingManager.instance.TryPlaceObject(builtObject, hit.point, Quaternion.LookRotation(directionWithoutYAxis));
+            }
+        }   
     }
 }

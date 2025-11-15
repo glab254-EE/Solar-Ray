@@ -14,7 +14,7 @@ public class EnemyHealthHandler : MonoBehaviour,IDamagable
     }
     public bool TryDamage(float damage)
     {
-        if (Health >= 0)
+        if (Health > 0)
         {
             Health -= damage;
             if (Health <= 0)

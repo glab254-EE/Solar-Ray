@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "EnemySO", menuName = "Scriptable Objects/EnemySO")]
@@ -22,7 +23,15 @@ public class EnemySO : ScriptableObject
     [field: SerializeField]
     public float AttackCooldown { get; private set; } = 2f;
     [field: SerializeField]
-    public Vector3 AttackHitboxSize { get; private set; } = Vector3.one;
+    public Vector3 AttackHurtboxSize { get; private set; } = Vector3.one;
     [field: SerializeField]
     public GameObject EnemyVisualPrefab { get; private set; }
+    [field: SerializeField]
+    public HitboxInfo hitboxInfo{get;private set;}
+}
+[Serializable]
+public struct HitboxInfo
+{
+    public Vector3 size;
+    public Vector3 offset;
 }

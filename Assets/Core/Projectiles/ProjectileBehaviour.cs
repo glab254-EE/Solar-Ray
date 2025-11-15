@@ -13,7 +13,7 @@ public class ProjectileBehaviour : MonoBehaviour
     }
     void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject != null && (ExcludedTag == null || other.gameObject.CompareTag(ExcludedTag) == false))
+        if (other.gameObject != null && (ExcludedTag == null || other.gameObject.CompareTag(ExcludedTag) == false) && other.gameObject.CompareTag("Detectors") == false)
         {
             if (other.gameObject.TryGetComponent(out IDamagable damagable))
             {

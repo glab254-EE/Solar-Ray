@@ -4,7 +4,7 @@ using UnityEngine;
 public class BuildingManager : MonoBehaviour
 {
     internal static BuildingManager instance;
-    internal Dictionary<ABuildableSO, int> buildingCounts { get; private set; } = new();
+    internal float Resources {get;private set;} = new();
     void Awake()
     {
         if (instance != null)
@@ -13,27 +13,24 @@ public class BuildingManager : MonoBehaviour
         }
         instance = this;
     }
+    internal void OnResourcePickup(ResourceSphereBehaviour sphere)
+    {
+        if (sphere == null) return;
+        Resources += sphere.ResourceGain;
+        Destroy(sphere.gameObject);
+    }
     internal bool TryPlaceObject(ABuildableSO builtObject,Vector3 position, Quaternion rotation)
     {
         if (builtObject == null || position == null || rotation == null) return false;
-        if (buildingCounts.ContainsKey(builtObject))
+        if (builtObject.BuildCost <= Resources)
         {
-            if (buildingCounts[builtObject] <= 0)
-            {
-                return false;
-            }
-            else
-            {
-                buildingCounts[builtObject] -= 1;
-            }
-        }
-        else
+            Resources -= builtObject.BuildCost;
+        } else
         {
-            buildingCounts.Add(builtObject, builtObject.MaxBuildCount);
-            buildingCounts[builtObject] -= 1;
+            return false;
         }
         GameObject newPlacedObject = Instantiate(builtObject.Model, position, rotation);
-        builtObject.OnPlace(newPlacedObject);
+        builtObject.OnPlace(newPlacedObject,builtObject);
         return true;
     }
 }

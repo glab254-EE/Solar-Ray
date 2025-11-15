@@ -74,7 +74,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
             new Ray(
                 transform.position
                 + Vector3.down
-                * transform.localScale.y,
+                * transform.localScale.y / 1.01f,
                 Vector3.down * .5f),
 
              0.5f, LayerMask.NameToLayer("Surface")))

@@ -1,8 +1,15 @@
+using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class EnemyWaveBehaviour : MonoBehaviour
 {
+    [field: SerializeField]
+    private HoverOverInterfaceGiver HoverOverChecker;
+    [field: SerializeField]
+    private GameObject ScannerGO;
     [field: SerializeField]
     private Terrain terrain;
     [field: SerializeField]
@@ -19,31 +26,72 @@ public class EnemyWaveBehaviour : MonoBehaviour
     private float EnemiesSpawnCooldown = 1.5f;
     [field: SerializeField]
     private float EnemiesSpawnDuration = 60f;
+    [field: SerializeField]
+    private Transform UIParent;
+    [field: SerializeField]
+    private GameObject AlterTextPrefab;
+    [field: SerializeField]
+    private string AlterTextString;
+    [field: SerializeField]
+    private float AltarTextShowDuration = 2f;
     internal bool WaveFinished { get; private set; } = false;
-    private bool spawningActive = false;
+    private bool spawningActive = false; 
+    private bool prologeShown = false;
     private float MainTimer = 0f;
     private float SpawningTimer = 0f;
+    private InputSystem_Actions inputActions;
+    void Awake()
+    {
+        HoverOverChecker = GetComponent<HoverOverInterfaceGiver>();
+        inputActions = new();
+    }
     void Update()
     {
+        if (HoverOverChecker.IsHoveringOver == true && Mouse.current.leftButton.isPressed && !spawningActive)
+        {
+            if (Vector3.Distance(transform.position, playerTransform.position) <= MaxRange && !WaveFinished && !prologeShown)
+            {
+                StartCoroutine(PrologeEnumerator());
+            }
+        }
         if (!spawningActive) return;
+        HoverOverChecker.LabelText = "Алтарь иследуется, остаётся: "+Mathf.Round(EnemiesSpawnDuration-MainTimer)+" секунды.";
+        if (ScannerGO != null && !ScannerGO.activeInHierarchy)
+        {
+            ScannerGO.SetActive(true);
+        }
         MainTimer += Time.deltaTime;
         SpawningTimer += Time.deltaTime;
         if (MainTimer >= EnemiesSpawnDuration)
         {
             spawningActive = false;
             WaveFinished = true;
+            if (ScannerGO != null && !ScannerGO.activeInHierarchy)
+            {
+                ScannerGO.SetActive(false);
+            }
+            HoverOverChecker.LabelText = "Алтарь иследован, идите в другую точку.";
         }
         if (SpawningTimer >= EnemiesSpawnCooldown)
         {
+            SpawningTimer = 0;
             SpawnRandomEnemy();
         }
     }
-    void OnMouseUpAsButton()
+    private IEnumerator PrologeEnumerator()
     {
-        if (Vector3.Distance(transform.position, playerTransform.position) <= MaxRange && !WaveFinished && !spawningActive)
+        prologeShown = true;
+        if (AltarTextShowDuration != 0 && AlterTextPrefab != null && UIParent != null)
         {
-            spawningActive = true;
+            GameObject shownText = Instantiate(AlterTextPrefab,UIParent);
+            if (AlterTextString != ""&&shownText.TryGetComponent(out TMP_Text texta))
+            {
+                texta.text = AlterTextString;
+            }
+            yield return new WaitForSeconds(AltarTextShowDuration);
+            Destroy(shownText);
         }
+        spawningActive = true;
     }
     private void SpawnRandomEnemy()
     {
