@@ -34,6 +34,8 @@ public class EnemyWaveBehaviour : MonoBehaviour
     private string AlterTextString;
     [field: SerializeField]
     private float AltarTextShowDuration = 2f;
+    [field: SerializeField]
+    private AudioClip clip;
     internal bool WaveFinished { get; private set; } = false;
     private bool spawningActive = false; 
     private bool prologeShown = false;
@@ -51,6 +53,10 @@ public class EnemyWaveBehaviour : MonoBehaviour
         {
             if (Vector3.Distance(transform.position, playerTransform.position) <= MaxRange && !WaveFinished && !prologeShown)
             {
+                if (transform.TryGetComponent(out AudioSource source))
+                {
+                    source.Play();
+                }
                 StartCoroutine(PrologeEnumerator());
             }
         }
@@ -87,6 +93,12 @@ public class EnemyWaveBehaviour : MonoBehaviour
             if (AlterTextString != ""&&shownText.TryGetComponent(out TMP_Text texta))
             {
                 texta.text = AlterTextString;
+            }
+            if (clip != null)
+            {
+                AudioSource source = shownText.AddComponent<AudioSource>();
+                source.clip = clip;
+                source.Play();
             }
             yield return new WaitForSeconds(AltarTextShowDuration);
             Destroy(shownText);

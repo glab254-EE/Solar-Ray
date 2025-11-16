@@ -1,18 +1,30 @@
-using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-[RequireComponent(typeof(TMP_Text))]
+[RequireComponent(typeof(Image))]
 public class HealthCounterUI : MonoBehaviour
 {
     [field:SerializeField]
     private PlayerHealthBehaviour playerHealth;
-    private TMP_Text textLabel;
+    [field:SerializeField]
+    private List<Sprite> HealthSprites = new();
+    private Image imageLabel;
     void Start()
     {
-        textLabel = GetComponent<TMP_Text>();
+        imageLabel = GetComponent<Image>();
     }
     void Update()
     {
-        textLabel.text = playerHealth.Health.ToString()+"/"+playerHealth.MaxHealth.ToString();
+        int newindex = Mathf.RoundToInt((playerHealth.Health+1)/HealthSprites.Count);
+        Debug.Log(newindex);
+        if (newindex >= 0 && newindex < HealthSprites.Count)
+        {
+            Sprite newsprite = HealthSprites[newindex];
+            if (imageLabel.sprite != newsprite)
+            {
+                imageLabel.sprite = newsprite;
+            }
+        }
     }
 }

@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77be5ffb9cc29274b948d6f2073e0b09, type: 3}
   m_Name: TeslaField
   m_EditorClassIdentifier: Assembly-CSharp::NormalProjectileSO
-  <Damage>k__BackingField: 5
+  <Damage>k__BackingField: 2
   <LifeTime>k__BackingField: 5

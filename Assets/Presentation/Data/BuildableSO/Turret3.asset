@@ -12,5 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca1b037b8f11e904b9cf54c9a6d13fe9, type: 3}
   m_Name: Turret3
   m_EditorClassIdentifier: Assembly-CSharp::BasicBuildable
-  <Model>k__BackingField: {fileID: 4306187837152373932, guid: 21b17cbd9cfa0504591a4073e951b9fe, type: 3}
+  <Model>k__BackingField: {fileID: 8805084903354760909, guid: 2df732ff610010f40a90723f0aabfaf3, type: 3}
   <BuildCost>k__BackingField: 2

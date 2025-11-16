@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public class PlayerToolBehaviour : MonoBehaviour
 {
     [field: SerializeField]
+    private PlayerHealthBehaviour playerHP;
     private ATool currentTool;
     private GameObject currentToolObject;
     private InputSystem_Actions inputActions;
@@ -17,6 +18,10 @@ public class PlayerToolBehaviour : MonoBehaviour
     }
     void Update()
     {
+        if (playerHP != null && playerHP.Health <= 0)
+        {
+            return;
+        }
         if (currentTool != null && currentTool.ViewModel != null && currentToolObject == null)
         {
             OnEquip();

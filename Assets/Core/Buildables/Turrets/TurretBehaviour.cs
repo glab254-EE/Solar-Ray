@@ -61,6 +61,10 @@ public class TurretBehaviour : MonoBehaviour, IDamagable
     }
     private void TurretLoop()
     {
+        if (Health == 0)
+        {
+            Destroy(gameObject);
+        }
         if (Ammunition > 0 || Ammunition == -1)
         {
             if (TurningObject == null ) // god, i understand how fucked this thing is...
@@ -99,7 +103,7 @@ public class TurretBehaviour : MonoBehaviour, IDamagable
     {
         Ammunition = Mathf.Clamp(Ammunition-1,-1,MaxAmmunition);
         GameObject newProjectile = Instantiate(ProjectileGO,MuzzlePoint.position,MuzzlePoint.rotation);
-        if (EmmiterObject.TryGetComponent(out ParticleSystem system))
+        if (EmmiterObject != null && EmmiterObject.TryGetComponent(out ParticleSystem system))
         {
             system.Emit(EmitCount);
         }
@@ -107,13 +111,14 @@ public class TurretBehaviour : MonoBehaviour, IDamagable
         {
             rb.linearVelocity = directionVector * ProjectileSpeed;
         }
-        if (newProjectile.TryGetComponent(out ProjectileBehaviour behaviour))
-        {
-            behaviour.Initialize(projectileSO,"Player");
-        } else if (newProjectile.TryGetComponent(out PiercingProjectileBehaviour2 behaviour2))
+        if (newProjectile.TryGetComponent(out PiercingProjectileBehaviour2 behaviour2))
         {
             behaviour2.Initialize(projectileSO,"Player");
         }
+        if (newProjectile.TryGetComponent(out ProjectileBehaviour behaviour))
+        {
+            behaviour.Initialize(projectileSO,"Player");
+        } 
     }
     public bool TryDamage(float damage)
     {

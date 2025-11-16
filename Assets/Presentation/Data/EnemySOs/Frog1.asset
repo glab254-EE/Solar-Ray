@@ -21,7 +21,7 @@ MonoBehaviour:
   <AttackDistance>k__BackingField: 2
   <AttackDuration>k__BackingField: 3
   <AttackCooldown>k__BackingField: 7.5
-  <AttackHurtboxSize>k__BackingField: {x: 2, y: 2, z: 2}
+  <AttackHurtboxSize>k__BackingField: {x: 1, y: 2, z: 1}
   <EnemyVisualPrefab>k__BackingField: {fileID: 6227240916197444147, guid: 86970dca7527fc34dbca53a9d2535c25, type: 3}
   <hitboxInfo>k__BackingField:
     size: {x: 0.9, y: 0, z: 0}

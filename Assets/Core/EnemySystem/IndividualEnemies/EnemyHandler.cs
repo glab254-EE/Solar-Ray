@@ -138,13 +138,12 @@ public class EnemyHandler : MonoBehaviour
     {
         if (EnemySO.AttackHurtboxSize != null && AttackPoint != null)
         {
-            Collider[] hits = Physics.OverlapBox(AttackPoint.position,EnemySO.AttackHurtboxSize,AttackPoint.rotation);
-            foreach (Collider hit in hits)
+            RaycastHit[] hits = Physics.BoxCastAll(AttackPoint.position,EnemySO.AttackHurtboxSize/2,AttackPoint.forward);
+            foreach (RaycastHit _hit in hits)
             {
-                Debug.Log("Checking.");
+                Collider hit = _hit.collider;
                 if (hit.CompareTag("Player") && hit.transform.gameObject.TryGetComponent(out IDamagable damagable))
                 {
-                    Debug.Log("Damaged!");
                     damagable.TryDamage(EnemySO.AttackDamage);
                 }
             }

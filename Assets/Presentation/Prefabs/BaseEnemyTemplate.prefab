@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3199068935683469926}
   - component: {fileID: 3010475195169236315}
   - component: {fileID: 7119088585955458596}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BaseEnemyTemplate
   m_TagString: Enemies
   m_Icon: {fileID: 0}
@@ -77,13 +77,13 @@ Rigidbody:
     m_Bits: 0
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 0
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!195 &3199068935683469926
 NavMeshAgent:
@@ -145,7 +145,7 @@ GameObject:
   - component: {fileID: 2440745683685361514}
   - component: {fileID: 5525872252874242363}
   - component: {fileID: 6001353549962435394}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: DetectionRange
   m_TagString: Detectors
   m_Icon: {fileID: 0}

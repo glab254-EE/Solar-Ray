@@ -42,6 +42,10 @@ public class FirearmSO : ATool
         rotation.eulerAngles += new Vector3(Random.Range(-MaxSpread, MaxSpread), Random.Range(-MaxSpread, MaxSpread), Random.Range(-MaxSpread, MaxSpread));
         if (ProjectilePrefab != null)
         {
+            if (toolTransform.TryGetComponent(out AudioSource source))
+            {
+                source.Play();
+            }
             GameObject projectile = Instantiate(ProjectilePrefab,neworigin.position,rotation);
             if (projectile.TryGetComponent(out Rigidbody rb))
             {

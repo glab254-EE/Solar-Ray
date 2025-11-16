@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
@@ -5,22 +6,24 @@ public class PiercingProjectileBehaviour2 : MonoBehaviour
 {
     private string ExcludedTag;
     private AProjectileSO currentProjectileSO;
+    private List<GameObject> damaged = new();
     internal void Initialize(AProjectileSO aProjectileSO,string excludedTag)
     {
         ExcludedTag = excludedTag;
         currentProjectileSO = aProjectileSO;
         Destroy(gameObject,currentProjectileSO.LifeTime);    
     }
-    void OnTriggerEnter(Collider other)
+    void OnTriggerStay(Collider other)
     {
-        if (other.gameObject != null && (ExcludedTag == null || other.gameObject.CompareTag(ExcludedTag) == false) && other.gameObject.CompareTag("Detectors") == false)
+        if (other != null && other.gameObject != null && !damaged.Contains(other.gameObject) && (ExcludedTag == null || other.gameObject.CompareTag(ExcludedTag) == false) && other.gameObject.CompareTag("Detectors") == false)
         {
+            damaged.Add(other.gameObject);
             if (other.gameObject.TryGetComponent(out IDamagable damagable))
             {
-                currentProjectileSO.OnHit(damagable, other.ClosestPoint(transform.position));              
+                currentProjectileSO.OnHit(damagable, Vector3.zero);              
             } else
             {
-                currentProjectileSO.OnHit(null, other.ClosestPoint(transform.position));  
+                currentProjectileSO.OnHit(null, Vector3.zero);  
             }
         }
     }

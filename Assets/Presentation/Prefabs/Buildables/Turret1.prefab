@@ -5125,6 +5125,8 @@ GameObject:
   - component: {fileID: 6041461934591862137}
   - component: {fileID: 8732490806563094489}
   - component: {fileID: 8823744244775025530}
+  - component: {fileID: -1919779008261575925}
+  - component: {fileID: 2347912102368055142}
   m_Layer: 0
   m_Name: Turret1
   m_TagString: Player
@@ -5185,6 +5187,59 @@ MonoBehaviour:
   CanvasTransform: {fileID: 0}
   GivenInterface: {fileID: 4137487873517018955, guid: bb8b2b80baada6b479d425c8e6cc8015, type: 3}
   LabelText: 
+--- !u!54 &-1919779008261575925
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4306187837152373932}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &2347912102368055142
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4306187837152373932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb9dd00761a8a34ab49eac4f0483d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurretBehaviour
+  HoverOverChecker: {fileID: 8823744244775025530}
+  TurningObject: {fileID: 5476938911103926091}
+  MuzzlePoint: {fileID: 5313807148052273525}
+  detector: {fileID: 5839436009084654349}
+  MaxAmmunition: 10
+  TurningSpeed: 25
+  ShootDelay: 2
+  ProjectileGO: {fileID: 6309457368946091771, guid: 1fe3ce9250d1cac458e3bb07c84dce0b, type: 3}
+  projectileSO: {fileID: 11400000, guid: 2a592362e6262564085ec560d492b319, type: 2}
+  EmmiterObject: {fileID: 2130426760602312190}
+  EmitCount: 25
+  ProjectileSpeed: 15
+  RequiredAccuracy: 0.5
+  <Health>k__BackingField: 300
 --- !u!1 &6816944688879193620
 GameObject:
   m_ObjectHideFlags: 0
@@ -5195,7 +5250,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6032793514843882596}
   - component: {fileID: 2064156855358519255}
-  - component: {fileID: 4403785197264618100}
   m_Layer: 0
   m_Name: turret1
   m_TagString: Player
@@ -5243,32 +5297,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &4403785197264618100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6816944688879193620}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fb9dd00761a8a34ab49eac4f0483d8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TurretBehaviour
-  HoverOverChecker: {fileID: 8823744244775025530}
-  TurningObject: {fileID: 5476938911103926091}
-  MuzzlePoint: {fileID: 5313807148052273525}
-  detector: {fileID: 5839436009084654349}
-  MaxAmmunition: 10
-  TurningSpeed: 25
-  ShootDelay: 2
-  ProjectileGO: {fileID: 6309457368946091771, guid: 1fe3ce9250d1cac458e3bb07c84dce0b, type: 3}
-  projectileSO: {fileID: 11400000, guid: 2a592362e6262564085ec560d492b319, type: 2}
-  EmmiterObject: {fileID: 2130426760602312190}
-  EmitCount: 25
-  ProjectileSpeed: 15
-  RequiredAccuracy: 0.5
-  <Health>k__BackingField: 300
 --- !u!1 &7277851763314955943
 GameObject:
   m_ObjectHideFlags: 0
@@ -5508,7 +5536,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95df852f02f4f904cb52f69f253fe6f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretsHealthViewer
-  tower: {fileID: 4403785197264618100}
+  tower: {fileID: 2347912102368055142}
 --- !u!1 &9179956094898525020
 GameObject:
   m_ObjectHideFlags: 0

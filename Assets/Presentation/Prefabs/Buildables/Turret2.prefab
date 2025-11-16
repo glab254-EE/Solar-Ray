@@ -5052,7 +5052,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95df852f02f4f904cb52f69f253fe6f4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TurretsHealthViewer
-  tower: {fileID: 4574537160481489597}
+  tower: {fileID: 4949512504956681611}
 --- !u!1 &4306187837152373932
 GameObject:
   m_ObjectHideFlags: 0
@@ -5064,6 +5064,8 @@ GameObject:
   - component: {fileID: 6041461934591862137}
   - component: {fileID: 8732490806563094489}
   - component: {fileID: 8823744244775025530}
+  - component: {fileID: -805495495654699673}
+  - component: {fileID: 4949512504956681611}
   m_Layer: 0
   m_Name: Turret2
   m_TagString: Player
@@ -5124,6 +5126,59 @@ MonoBehaviour:
   CanvasTransform: {fileID: 0}
   GivenInterface: {fileID: 4137487873517018955, guid: bb8b2b80baada6b479d425c8e6cc8015, type: 3}
   LabelText: 
+--- !u!54 &-805495495654699673
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4306187837152373932}
+  serializedVersion: 5
+  m_Mass: 1
+  m_LinearDamping: 0
+  m_AngularDamping: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 126
+  m_CollisionDetection: 0
+--- !u!114 &4949512504956681611
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4306187837152373932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8fb9dd00761a8a34ab49eac4f0483d8c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TurretBehaviour
+  HoverOverChecker: {fileID: 8823744244775025530}
+  TurningObject: {fileID: 2373819025800665638}
+  MuzzlePoint: {fileID: 8427734035850731645}
+  detector: {fileID: 4321889588135076356}
+  MaxAmmunition: -1
+  TurningSpeed: 40
+  ShootDelay: 0.1
+  ProjectileGO: {fileID: 6309457368946091771, guid: 1fe3ce9250d1cac458e3bb07c84dce0b, type: 3}
+  projectileSO: {fileID: 11400000, guid: c4cbfc47157d6ec41bdb74046ea5cc31, type: 2}
+  EmmiterObject: {fileID: 1880606570302094455}
+  EmitCount: 25
+  ProjectileSpeed: 25
+  RequiredAccuracy: 0.5
+  <Health>k__BackingField: 100
 --- !u!1 &6487941157425540409
 GameObject:
   m_ObjectHideFlags: 0
@@ -5368,47 +5423,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8702769530702749115, guid: 4b340c336c057bf4cb6b90d948c8d6ef, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8427734035850731645}
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 4b340c336c057bf4cb6b90d948c8d6ef, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4574537160481489597}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4b340c336c057bf4cb6b90d948c8d6ef, type: 3}
 --- !u!4 &2373819025800665638 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 8702769530702749115, guid: 4b340c336c057bf4cb6b90d948c8d6ef, type: 3}
   m_PrefabInstance: {fileID: 6356563782202345373}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &6122191541571549900 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 4b340c336c057bf4cb6b90d948c8d6ef, type: 3}
-  m_PrefabInstance: {fileID: 6356563782202345373}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4574537160481489597
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6122191541571549900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8fb9dd00761a8a34ab49eac4f0483d8c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TurretBehaviour
-  HoverOverChecker: {fileID: 8823744244775025530}
-  TurningObject: {fileID: 2373819025800665638}
-  MuzzlePoint: {fileID: 8427734035850731645}
-  detector: {fileID: 4321889588135076356}
-  MaxAmmunition: -1
-  TurningSpeed: 40
-  ShootDelay: 0.1
-  ProjectileGO: {fileID: 6309457368946091771, guid: 1fe3ce9250d1cac458e3bb07c84dce0b, type: 3}
-  projectileSO: {fileID: 11400000, guid: c4cbfc47157d6ec41bdb74046ea5cc31, type: 2}
-  EmmiterObject: {fileID: 1880606570302094455}
-  EmitCount: 25
-  ProjectileSpeed: 25
-  RequiredAccuracy: 0.5
-  <Health>k__BackingField: 100
 --- !u!4 &6898868570100703350 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 4b340c336c057bf4cb6b90d948c8d6ef, type: 3}
