@@ -33,10 +33,9 @@ public class EnemyWaveBehaviour : MonoBehaviour
     [field: SerializeField]
     private string AlterTextString;
     [field: SerializeField]
-    private float AltarTextShowDuration = 2f;
-    [field: SerializeField]
     private AudioClip clip;
     internal bool WaveFinished { get; private set; } = false;
+    private List<GameObject> spawnedEnemies = new();
     private bool spawningActive = false; 
     private bool prologeShown = false;
     private float MainTimer = 0f;
@@ -76,7 +75,13 @@ public class EnemyWaveBehaviour : MonoBehaviour
             {
                 ScannerGO.SetActive(false);
             }
+            DespawnEnemies();
             HoverOverChecker.LabelText = "Алтарь иследован, идите в другую точку.";
+            TaskManager potentialManager = FindAnyObjectByType<TaskManager>();
+            if (potentialManager != null)
+            {
+                potentialManager.ContinueTask();
+            }
         }
         if (SpawningTimer >= EnemiesSpawnCooldown)
         {
@@ -87,7 +92,7 @@ public class EnemyWaveBehaviour : MonoBehaviour
     private IEnumerator PrologeEnumerator()
     {
         prologeShown = true;
-        if (AltarTextShowDuration != 0 && AlterTextPrefab != null && UIParent != null)
+        if (AlterTextPrefab != null && UIParent != null)
         {
             GameObject shownText = Instantiate(AlterTextPrefab,UIParent);
             if (AlterTextString != ""&&shownText.TryGetComponent(out TMP_Text texta))
@@ -100,17 +105,30 @@ public class EnemyWaveBehaviour : MonoBehaviour
                 source.clip = clip;
                 source.Play();
             }
-            yield return new WaitForSeconds(AltarTextShowDuration);
+            do
+            {
+                yield return new WaitForEndOfFrame();
+            } while (shownText != null);
             Destroy(shownText);
         }
         spawningActive = true;
+    }
+    private void DespawnEnemies()
+    {
+        foreach(GameObject enemy in spawnedEnemies)
+        {
+            if (enemy != null)
+            {
+                Destroy(enemy);
+            }
+        }
     }
     private void SpawnRandomEnemy()
     {
         if (EnemyTemplate == null || Enemies == null) return;
 
         EnemySO randomEnemy = Enemies[UnityEngine.Random.Range(0, Enemies.Count)];
-        float RandomDirection = UnityEngine.Random.Range(0.00f, 1.00f);
+        float RandomDirection = UnityEngine.Random.Range(0.00f, 360.00f);
 
         float X = Mathf.Sin(RandomDirection) * EnemiesSpawnRange;
         float Y = Mathf.Cos(RandomDirection) * EnemiesSpawnRange;
@@ -123,5 +141,6 @@ public class EnemyWaveBehaviour : MonoBehaviour
         {
             handler.EnemySO = randomEnemy;
         }
+        spawnedEnemies.Add(newenemy);
     }
 }

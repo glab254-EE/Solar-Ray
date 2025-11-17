@@ -19,7 +19,7 @@ public class HoverOverInterfaceGiver : MonoBehaviour
         }
         if (currentUI == null && GivenInterface != null)
         {
-            currentUI = Instantiate(GivenInterface,CanvasTransform);
+            currentUI = Instantiate(GivenInterface,Vector3.zero,Quaternion.identity,CanvasTransform);
             if (LabelText != "" && currentUI.TryGetComponent(out TMP_Text text))
             {
                 text.text = LabelText;

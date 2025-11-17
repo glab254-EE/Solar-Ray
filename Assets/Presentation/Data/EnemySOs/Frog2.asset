@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d30b7bcf38cac5543954015886c8f233, type: 3}
   m_Name: Frog2
   m_EditorClassIdentifier: Assembly-CSharp::EnemySO
-  <MaxHealth>k__BackingField: 3
+  <MaxHealth>k__BackingField: 2
   <MoveSpeed>k__BackingField: 3
   <MoveAcceleration>k__BackingField: 4
   <TurnSpeed>k__BackingField: 180
