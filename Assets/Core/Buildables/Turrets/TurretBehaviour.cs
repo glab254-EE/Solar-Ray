@@ -102,23 +102,11 @@ public class TurretBehaviour : MonoBehaviour, IDamagable
     private void ShootProjectile(Vector3 directionVector)
     {
         Ammunition = Mathf.Clamp(Ammunition-1,-1,MaxAmmunition);
-        GameObject newProjectile = Instantiate(ProjectileGO,MuzzlePoint.position,MuzzlePoint.rotation);
         if (EmmiterObject != null && EmmiterObject.TryGetComponent(out ParticleSystem system))
         {
             system.Emit(EmitCount);
         }
-        if (newProjectile.TryGetComponent(out Rigidbody rb))
-        {
-            rb.linearVelocity = directionVector * ProjectileSpeed;
-        }
-        if (newProjectile.TryGetComponent(out PiercingProjectileBehaviour2 behaviour2))
-        {
-            behaviour2.Initialize(projectileSO,"Player");
-        }
-        if (newProjectile.TryGetComponent(out ProjectileBehaviour behaviour))
-        {
-            behaviour.Initialize(projectileSO,"Player");
-        } 
+        ProjectileManager.Instance.ShootProjectile(MuzzlePoint.position,directionVector*ProjectileSpeed,projectileSO);
     }
     public bool TryDamage(float damage)
     {

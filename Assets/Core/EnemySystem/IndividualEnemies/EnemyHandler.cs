@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class EnemyHandler : MonoBehaviour
 {
     [field: SerializeField]
-    internal EnemySO EnemySO;
+    internal EnemySO enemySO;
     [field: SerializeField]
     private GameObject ResourceObject;
     [field: SerializeField]
@@ -22,18 +22,19 @@ public class EnemyHandler : MonoBehaviour
     private GameObject enemyVisual;
     private GeneralPurposeEventBehaviour AttackEvent;
     private bool isDead = false;
+    private EnemyInvoker invoker;
     void Start()
     {
-        if (EnemySO == null)
+        if (enemySO == null)
         {
             Debug.LogWarning("Enemy failed to initialize due of no enemy SO.");
             return;
         }
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
         
-        if (EnemySO.EnemyVisualPrefab != null)
+        if (enemySO.EnemyVisualPrefab != null)
         {
-            enemyVisual = Instantiate(EnemySO.EnemyVisualPrefab, transform);
+            enemyVisual = Instantiate(enemySO.EnemyVisualPrefab, transform);
             AttackPoint = enemyVisual.transform.Find("Attack Point");
             AttackEvent = enemyVisual.GetComponent<GeneralPurposeEventBehaviour>();
             if (AttackEvent != null)
@@ -44,24 +45,26 @@ public class EnemyHandler : MonoBehaviour
 
         if (gameObject.TryGetComponent(out BoxCollider collider))
         {
-            collider.size = EnemySO.hitboxInfo.size;
-            collider.center = EnemySO.hitboxInfo.offset;
+            collider.size = enemySO.hitboxInfo.size;
+            collider.center = enemySO.hitboxInfo.offset;
         } 
         if (gameObject.TryGetComponent(out SphereCollider collider2))
         {
-            collider2.radius = EnemySO.hitboxInfo.size.x;
-            collider2.center = EnemySO.hitboxInfo.offset;
+            collider2.radius = enemySO.hitboxInfo.size.x;
+            collider2.center = enemySO.hitboxInfo.offset;
         } 
 
         healthHandler = GetComponent<EnemyHealthHandler>();
-        healthHandler.Initialize(EnemySO.MaxHealth);
+        healthHandler.Initialize(enemySO.MaxHealth);
         healthHandler.OnDeath += OnDeath;
 
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = EnemySO.MoveSpeed;
-        agent.angularSpeed = EnemySO.TurnSpeed;
-        agent.acceleration = EnemySO.MoveAcceleration;
-        agent.stoppingDistance = EnemySO.StoppingDistance;
+        agent.speed = enemySO.MoveSpeed;
+        agent.angularSpeed = enemySO.TurnSpeed;
+        agent.acceleration = enemySO.MoveAcceleration;
+        agent.stoppingDistance = enemySO.StoppingDistance;
+
+        invoker = new(enemySO);
 
         isEnabled = true;
 
@@ -71,37 +74,33 @@ public class EnemyHandler : MonoBehaviour
     {
         if (isEnabled)
         {
-            GameObject? newtarget = detector.GetFirstEnemy();
+            GameObject newtarget = detector.GetFirstEnemy();
             if (newtarget != null && newtarget.transform != currentTarget)
             {
                 currentTarget = newtarget.transform;
             }
-            if (!isAttacking)
-            {        
-                if (Vector3.Distance(transform.position,currentTarget.position) > EnemySO.AttackDistance)
+            if (isAttacking) return;
+            if (Vector3.Distance(transform.position,currentTarget.position) > enemySO.AttackDistance)
+            {
+                agent.SetDestination(currentTarget.position);   
+            } else
+            {
+                if (agent.destination != transform.position)
                 {
-                    if (Vector3.Distance(agent.destination,currentTarget.position) > 0.1f)
-                    {
-                        agent.SetDestination(currentTarget.position);                          
-                    }                  
+                    agent.SetDestination(transform.position);
+                }
+                if (AttackCooldown < 0)
+                {
+                    StartCoroutine(AttackEnumerator());
                 } else
                 {
-                    if (agent.destination != transform.position)
-                    {
-                        agent.SetDestination(transform.position);
-                    }
-                    if (AttackCooldown < 0)
-                    {
-                        StartCoroutine(AttackEnumerator());
-                    } else
-                    {
-                        AttackCooldown -= Time.deltaTime;
-                    }
+                    AttackCooldown -= Time.deltaTime;
                 }
             }
         }
     }
-    void OnDeath()
+
+    private void OnDeath()
     {
         if (isDead) return;
         isDead = true;
@@ -112,7 +111,7 @@ public class EnemyHandler : MonoBehaviour
     IEnumerator AttackEnumerator()
     {
         isAttacking = true;
-        AttackCooldown = EnemySO.AttackCooldown;
+        AttackCooldown = enemySO.AttackCooldown;
         if (enemyVisual.TryGetComponent(out Animator a))
         {
             a.SetTrigger("attack");
@@ -121,7 +120,7 @@ public class EnemyHandler : MonoBehaviour
         {
             Debug.Log("Attacked without animator");
         }
-        yield return new WaitForSeconds(EnemySO.AttackDuration);
+        yield return new WaitForSeconds(enemySO.AttackDuration);
         isAttacking = false;   
     }
     IEnumerator DeathEnumerator()
@@ -131,22 +130,14 @@ public class EnemyHandler : MonoBehaviour
         {
             a.SetTrigger("death");
         }
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(2.5f);
         Destroy(gameObject);
     }
     internal void Attack()
     {
-        if (EnemySO.AttackHurtboxSize != null && AttackPoint != null)
+        if (enemySO.AttackHurtboxSize != null && AttackPoint != null)
         {
-            RaycastHit[] hits = Physics.BoxCastAll(AttackPoint.position,EnemySO.AttackHurtboxSize/2,AttackPoint.forward);
-            foreach (RaycastHit _hit in hits)
-            {
-                Collider hit = _hit.collider;
-                if (hit.CompareTag("Player") && hit.transform.gameObject.TryGetComponent(out IDamagable damagable))
-                {
-                    damagable.TryDamage(EnemySO.AttackDamage);
-                }
-            }
+            invoker.TriggerHitboxAndDamage(AttackPoint);
         }
     }
 }

@@ -10,11 +10,14 @@ public class TaskManager : MonoBehaviour
         [field:SerializeField]
         public string Message;
         [field:SerializeField]
+        public int Priority;
+        [field:SerializeField]
         public GameObject AddedObject;
-        public GameplayTask(string msg, GameObject obj)
+        public GameplayTask(string msg, GameObject obj,int priority)
         {
             Message = msg;
             AddedObject = obj;
+            Priority = priority;
         }
     }
     [field:SerializeField]
@@ -22,19 +25,23 @@ public class TaskManager : MonoBehaviour
     internal string currentTaskMessage {get;private set;}= "";
     private void Awake()
     {
-        ContinueTask();
+        ContinueTask(0);
     }
-    internal void ContinueTask()
+    internal void ContinueTask(int priority)
     {
         if (tasks.Count > 0)
         {
             GameplayTask nexttask = tasks[0]; 
+            if (nexttask.Priority > priority) return;
             if (nexttask.AddedObject != null)
             {
                 Instantiate(nexttask.AddedObject);
             }           
             currentTaskMessage = nexttask.Message;
             tasks.RemoveAt(0);
+        } else
+        {
+            // TODO: ADD SCENE MANAGER
         }
     }
 }

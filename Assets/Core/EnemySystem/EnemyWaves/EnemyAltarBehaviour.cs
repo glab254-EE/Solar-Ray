@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class EnemyWaveBehaviour : MonoBehaviour
+public class EnemyAltarBehaviour : MonoBehaviour, IDamagable
 {
     [field: SerializeField]
     private HoverOverInterfaceGiver HoverOverChecker;
@@ -27,6 +27,14 @@ public class EnemyWaveBehaviour : MonoBehaviour
     [field: SerializeField]
     private float EnemiesSpawnDuration = 60f;
     [field: SerializeField]
+    private float EnemiesDespawnTime = 30f;
+    [field: SerializeField]
+    internal float Health {get;private set;}= 300;
+    [field: SerializeField]
+    internal float DamageTaken {get;private set;}= 0.5f;
+    [field: SerializeField]
+    private float AltarDeathDamagePersecond= 300;
+    [field: SerializeField]
     private Transform UIParent;
     [field: SerializeField]
     private GameObject AlterTextPrefab;
@@ -34,6 +42,8 @@ public class EnemyWaveBehaviour : MonoBehaviour
     private string AlterTextString;
     [field: SerializeField]
     private AudioClip clip;
+    [field:SerializeField]
+    private int priority = 0; 
     internal bool WaveFinished { get; private set; } = false;
     private List<GameObject> spawnedEnemies = new();
     private bool spawningActive = false; 
@@ -59,7 +69,14 @@ public class EnemyWaveBehaviour : MonoBehaviour
                 StartCoroutine(PrologeEnumerator());
             }
         }
-        if (!spawningActive) return;
+        if (Health == 0)
+        {
+            if (playerTransform.TryGetComponent(out PlayerHealthBehaviour healthBehaviour))
+            {
+                healthBehaviour.TryDamage(AltarDeathDamagePersecond*Time.deltaTime);
+            }
+        }
+        if (!spawningActive || Health <= 0) return;
         HoverOverChecker.LabelText = "Алтарь иследуется, остаётся: "+Mathf.Round(EnemiesSpawnDuration-MainTimer)+" секунды.";
         if (ScannerGO != null && !ScannerGO.activeInHierarchy)
         {
@@ -80,7 +97,7 @@ public class EnemyWaveBehaviour : MonoBehaviour
             TaskManager potentialManager = FindAnyObjectByType<TaskManager>();
             if (potentialManager != null)
             {
-                potentialManager.ContinueTask();
+                potentialManager.ContinueTask(priority);
             }
         }
         if (SpawningTimer >= EnemiesSpawnCooldown)
@@ -113,8 +130,9 @@ public class EnemyWaveBehaviour : MonoBehaviour
         }
         spawningActive = true;
     }
-    private void DespawnEnemies()
+    private IEnumerator DespawnEnemies()
     {
+        yield return new WaitForSeconds(EnemiesDespawnTime);
         foreach(GameObject enemy in spawnedEnemies)
         {
             if (enemy != null)
@@ -139,8 +157,19 @@ public class EnemyWaveBehaviour : MonoBehaviour
         GameObject newenemy = Instantiate(EnemyTemplate, newposition, Quaternion.identity);
         if (newenemy.TryGetComponent<EnemyHandler>(out EnemyHandler handler))
         {
-            handler.EnemySO = randomEnemy;
+            handler.enemySO = randomEnemy;
         }
         spawnedEnemies.Add(newenemy);
+    }
+
+    public bool TryDamage(float damage)
+    {
+        if (Health - damage <= 0)
+        {
+            Health = 0;
+            return false;
+        }
+        Health -= DamageTaken;
+        return true;
     }
 }

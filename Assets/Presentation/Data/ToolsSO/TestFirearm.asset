@@ -15,10 +15,9 @@ MonoBehaviour:
   <ViewModel>k__BackingField: {fileID: 5719394923191557946, guid: b0e0c496ec272f94abd02c3c5afb0a9e, type: 3}
   <ToolSprite>k__BackingField: {fileID: 21300000, guid: 90ded0611e490aa4ba6961afbfc2280d, type: 3}
   <FireCooldown>k__BackingField: 1
-  shootingOriginName: 
+  shootingOriginName: ShootPoint
   MaxSpread: 0.5
   projectileSO: {fileID: 11400000, guid: b68f8687cfef1b44182d641babc1a712, type: 2}
-  ProjectilePrefab: {fileID: 6309457368946091771, guid: 1fe3ce9250d1cac458e3bb07c84dce0b, type: 3}
   ProjectileVelocity: {x: 0, y: 0, z: 15}
   <ToolName>k__BackingField: "\u041F\u0438\u0441\u0442\u043E\u043B\u0435\u0442"
   <ToolDescription>k__BackingField: "\u0421\u0430\u043C\u044B\u0439 \u0431\u0430\u0437\u043E\u0432\u044B\u0439

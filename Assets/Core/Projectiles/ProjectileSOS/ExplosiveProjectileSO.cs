@@ -8,12 +8,16 @@ public class ExplosiveProjectileSO : AProjectileSO
     [field:SerializeField]
     internal override float LifeTime  { get; set; }
     [field:SerializeField]
+    internal override GameObject VisualObject {get; set;}
+    [field:SerializeField]
+    internal override  HitboxInfo HitboxInfo {get; set;}
+    [field:SerializeField]
     internal float ExplosiveDamage { get; set; }
     [field:SerializeField]
     internal float ExplosionRadius { get; set; }
     [field: SerializeField]
     internal string ExcludedTag { get; set; }
-    protected internal override void OnHit(IDamagable damagable, Vector3 position)
+    protected internal override bool OnHit(IDamagable damagable, Vector3 position)
     {
         if (damagable != null && damagable.TryDamage(Damage))
         {
@@ -33,5 +37,6 @@ public class ExplosiveProjectileSO : AProjectileSO
                 }              
             }
         }
+        return true;
     }
 }

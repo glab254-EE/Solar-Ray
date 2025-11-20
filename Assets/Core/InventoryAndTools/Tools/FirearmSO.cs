@@ -17,47 +17,62 @@ public class FirearmSO : ATool
     [field: SerializeField]
     private AProjectileSO projectileSO;
     [field: SerializeField]
-    private GameObject ProjectilePrefab;
-    [field: SerializeField]
     private Vector3 ProjectileVelocity;
     [field: SerializeField]
     internal override string ToolName { get; set; }
     [field: SerializeField]
     internal override string ToolDescription { get; set; }
-    internal bool OnCooldown { get; private set; } = false;
+    private bool OnCooldown = false;
+    private void OnEnable()
+    {
+        OnCooldown = false;
+    }
     internal override void OnEquip(GameObject PlayerFirearmsOriginObject, GameObject toolobject)
     {
-        Debug.Log("Equiped!");
     }
 
     internal override void OnLeftMouseButtonPresss(GameObject PlayerFirearmsOriginObject, GameObject toolObject)
     {
-        Debug.Log("Pew start!");
     }
-    internal IEnumerator FirearmShoot(Transform toolTransform)
+    internal IEnumerator FirearmShoot(GameObject toolGO)
     {
-        if (toolTransform == null || OnCooldown) yield break;
+        Transform toolTransform= toolGO.transform;
+        Debug.Log(OnCooldown);
+        if (toolTransform == null || OnCooldown == true) yield break;
         Transform neworigin = toolTransform.Find(shootingOriginName) ?? toolTransform;
-        Quaternion rotation = neworigin.rotation;
-        rotation.eulerAngles += new Vector3(Random.Range(-MaxSpread, MaxSpread), Random.Range(-MaxSpread, MaxSpread), Random.Range(-MaxSpread, MaxSpread));
-        if (ProjectilePrefab != null)
-        {
-            if (toolTransform.TryGetComponent(out AudioSource source))
-            {
-                source.Play();
-            }
-            GameObject projectile = Instantiate(ProjectilePrefab,neworigin.position,rotation);
-            if (projectile.TryGetComponent(out Rigidbody rb))
-            {
-                rb.linearVelocity = projectile.transform.forward * ProjectileVelocity.z + projectile.transform.right * ProjectileVelocity.x + neworigin.up * ProjectileVelocity.y;
-            }
-            if (projectile.TryGetComponent(out ProjectileBehaviour behaviour))
-            {
-                behaviour.Initialize(projectileSO,"Player");
-            }
-        }
+        Debug.Log("Shooting loop start, finding origin");
         OnCooldown = true;
+
+        if (toolTransform.TryGetComponent(out Animator animator))
+        {
+            animator.SetTrigger("Shoot");
+        } 
+        if (toolTransform.TryGetComponent(out AudioSource source))
+        {
+            source.Play();
+        }
+        ParticleSystem system = toolTransform.GetComponentInChildren<ParticleSystem>();
+        if (system != null)
+        {
+            system.Emit(10);
+        }
+
+        Vector3 vector = neworigin.forward;
+        Vector3 newSpeed = 
+        (vector+Vector3.one
+        *Random.Range(
+            Mathf.Deg2Rad*-MaxSpread,
+            Mathf.Deg2Rad*MaxSpread
+            )
+        ).normalized
+        *ProjectileVelocity.z;
+
+
+        ProjectileManager.Instance.ShootProjectile(neworigin.position,newSpeed,projectileSO);
+
+
         yield return new WaitForSeconds(FireCooldown);
+
         OnCooldown = false;
     }
 }

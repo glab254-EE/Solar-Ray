@@ -55,7 +55,6 @@ public class PlayerHotbarCoreBehaviour : MonoBehaviour
         ATool tool = backpack.backpack.ElementAt(toolIndex);
         if (backpack.backpack.Contains(tool) && tool != null)
         {
-            Debug.Log("Success");
             playerToolBehaviour.EquipTool(tool);
             currentSelection = toolIndex;
         }

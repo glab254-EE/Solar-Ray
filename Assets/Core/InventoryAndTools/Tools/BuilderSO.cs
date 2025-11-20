@@ -33,7 +33,7 @@ public class BuilderSO : ATool
             if (hit.collider.gameObject != null && hit.collider.gameObject.CompareTag(BuildAreasTag))
             {
                 Vector3 forward = camera.forward;
-                Vector3 directionWithoutYAxis = new Vector3(forward.x, 0, forward.z).normalized;
+                Vector3 directionWithoutYAxis = new Vector3(forward.x, 0, forward.z).normalized * -1;
                 bool successs = BuildingManager.instance.TryPlaceObject(builtObject, hit.point, Quaternion.LookRotation(directionWithoutYAxis));
             }
         }   

@@ -16,9 +16,9 @@ MonoBehaviour:
   <MoveSpeed>k__BackingField: 5
   <MoveAcceleration>k__BackingField: 1
   <TurnSpeed>k__BackingField: 125
-  <StoppingDistance>k__BackingField: 0.25
+  <StoppingDistance>k__BackingField: 1
   <AttackDamage>k__BackingField: 5
-  <AttackDistance>k__BackingField: 2
+  <AttackDistance>k__BackingField: 3
   <AttackDuration>k__BackingField: 3
   <AttackCooldown>k__BackingField: 7.5
   <AttackHurtboxSize>k__BackingField: {x: 1, y: 2, z: 1}

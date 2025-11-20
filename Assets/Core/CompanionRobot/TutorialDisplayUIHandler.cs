@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -6,6 +7,8 @@ public class TutorialDisplayUIHandler : MonoBehaviour
 {
     [field:SerializeField]
     private List<Transform> frames;
+    [field:SerializeField]
+    private float ShowDuration = 5f;
     internal TutorialRobotBehaviour source;
     private InputSystem_Actions inputActions;
     private int CurrentFrame = 0;
@@ -30,26 +33,35 @@ public class TutorialDisplayUIHandler : MonoBehaviour
         {
             frame.gameObject.SetActive(false);
         }
-        if (frames.Count < CurrentFrame && CurrentFrame >= 0)
+        if (frames.Count > CurrentFrame && CurrentFrame >= 0)
         {
             frames[CurrentFrame].gameObject.SetActive(true);
         }
     }
     private void OnOption1Press(InputAction.CallbackContext _)
     {
+        if (!gameObject.activeInHierarchy) return;
         if (CurrentFrame == 0 || CurrentFrame == 1)
         {
             CurrentFrame = CurrentFrame == 1 ? 0 : 1;
             UpdateFrames();
+            StartCoroutine(ShowJokeEnumerator());
         }
     }
     private void OnOption2Press(InputAction.CallbackContext _)
     {
+        if (!gameObject.activeInHierarchy) return;
         if (CurrentFrame == 0 || CurrentFrame == 2)
         {
             CurrentFrame = CurrentFrame == 2 ? 0 : 2;
             UpdateFrames();
-        }
-        
+            StartCoroutine(ShowJokeEnumerator());
+        } 
+    }
+    private IEnumerator ShowJokeEnumerator()
+    {
+        yield return new WaitForSeconds(ShowDuration);
+        CurrentFrame = 0;
+        UpdateFrames();
     }
 }

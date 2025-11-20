@@ -12,8 +12,6 @@ public class TutorialRobotBehaviour : MonoBehaviour
     private float MoveSpeed = 1;
     [field:SerializeField]
     private GameObject HoverOverInterface;
-    [field:SerializeField]
-    private List<string> TaskStrings;
     internal string currentTask{get;private set;}
     internal bool IsMoving {get;private set;} = false;
     private bool isPlayerPointingOver = false;
@@ -72,10 +70,5 @@ public class TutorialRobotBehaviour : MonoBehaviour
                 IsMoving = false;
             });
         } 
-        if (TaskStrings.Count >= 1)
-        {
-            currentTask = TaskStrings[0];
-            TaskStrings.RemoveAt(0);
-        }
     }
 }

@@ -1,12 +1,15 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using System.Collections;
 
 public class PlayerToolBehaviour : MonoBehaviour
 {
     [field: SerializeField]
     private PlayerHealthBehaviour playerHP;
+    [field: SerializeField]
     private ATool currentTool;
-    private GameObject currentToolObject;
+    [field: SerializeField]
+    private GameObject currentToolObject = null;
     private InputSystem_Actions inputActions;
     private bool equiped;
     private bool lefftMouseButtonHeld = false;
@@ -33,13 +36,9 @@ public class PlayerToolBehaviour : MonoBehaviour
         }
         if (equiped && lefftMouseButtonHeld)
         {
-            if (currentTool is FirearmSO firearm && !firearm.OnCooldown)
+            if (currentTool is FirearmSO firearm)
             {
-                StartCoroutine(firearm.FirearmShoot(currentToolObject.transform));
-                if (currentToolObject != null&&currentToolObject.TryGetComponent(out Animator animator))
-                {
-                    animator.SetTrigger("Shoot");
-                } 
+                StartCoroutine(firearm.FirearmShoot(currentToolObject));
             }
         }
     }
@@ -76,6 +75,7 @@ public class PlayerToolBehaviour : MonoBehaviour
         if (currentToolObject != null)
         {
             Destroy(currentToolObject);
+            currentToolObject = null;
         }
         if (tool != null) 
         {

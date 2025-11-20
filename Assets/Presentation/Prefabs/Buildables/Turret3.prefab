@@ -452,7 +452,7 @@ MonoBehaviour:
   TurningSpeed: 150
   ShootDelay: 4.9
   ProjectileGO: {fileID: 9026591643952717177, guid: 1ed10340de932e644ba1800e61bef4ef, type: 3}
-  projectileSO: {fileID: 11400000, guid: f03cddaa3314c314fa7ef26443e95b24, type: 2}
+  projectileSO: {fileID: 11400000, guid: f2eb4624ea6b64f4aa2b73e489df2135, type: 2}
   EmmiterObject: {fileID: 0}
   EmitCount: 0
   ProjectileSpeed: 0
