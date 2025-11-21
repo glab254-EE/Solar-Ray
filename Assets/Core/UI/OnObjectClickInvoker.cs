@@ -9,7 +9,7 @@ public class OnObjectClickInvoker : MonoBehaviour
     private HoverOverInterfaceGiver detector;
     [field:SerializeField]
     private UnityEvent OnClickActions = new();
-    [field:SerializeField,Tooltip("To make it one-time use, make it -1")]
+    [field:SerializeField]
     private float ActivationDelay = -1;
     private bool activated = false;
     private InputSystem_Actions actions;
@@ -19,7 +19,7 @@ public class OnObjectClickInvoker : MonoBehaviour
     }
     void Update()
     {
-        if (!activated && detector.IsHoveringOver && actions.Player.Attack.ReadValue<bool>())
+        if (activated == false && detector.IsHoveringOver == true && actions.Player.Attack.IsPressed() == true)
         {
             OnClickActions?.Invoke();
             StartCoroutine(ActivationEnumerator());

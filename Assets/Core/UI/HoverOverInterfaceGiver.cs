@@ -11,7 +11,23 @@ public class HoverOverInterfaceGiver : MonoBehaviour
     internal string LabelText;
     internal bool IsHoveringOver {get;private set;} = false;
     private GameObject currentUI;
-    void OnMouseEnter()
+    void OnMouseOver()
+    {
+        if (CanvasTransform == null)
+        {
+            CanvasTransform = FindAnyObjectByType<Canvas>().transform;
+        }
+        if (currentUI == null && GivenInterface != null)
+        {
+            currentUI = Instantiate(GivenInterface,Vector3.zero,Quaternion.identity,CanvasTransform);
+            if (LabelText != "" && currentUI.TryGetComponent(out TMP_Text text))
+            {
+                text.text = LabelText;
+            }
+        }
+        IsHoveringOver = true;  
+    }
+    private void OnMouseEnter()
     {
         if (CanvasTransform == null)
         {
@@ -27,8 +43,9 @@ public class HoverOverInterfaceGiver : MonoBehaviour
         }
         IsHoveringOver = true;
     }
-    void OnMouseExit()
+    private void OnMouseExit()
     {
+        Debug.Log("Exit");
         if (currentUI != null)
         {
             Destroy(currentUI);

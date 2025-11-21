@@ -74,6 +74,7 @@ public class EnemyHandler : MonoBehaviour
     {
         if (isEnabled)
         {
+            if (isDead) return;
             GameObject newtarget = detector.GetFirstEnemy();
             if (newtarget != null && newtarget.transform != currentTarget)
             {
@@ -135,6 +136,7 @@ public class EnemyHandler : MonoBehaviour
     }
     internal void Attack()
     {
+        if (isDead) return;
         if (enemySO.AttackHurtboxSize != null && AttackPoint != null)
         {
             invoker.TriggerHitboxAndDamage(AttackPoint);

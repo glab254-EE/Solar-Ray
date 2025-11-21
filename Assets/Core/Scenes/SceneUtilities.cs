@@ -14,6 +14,10 @@ public class GameScenesManager
             return source;
         }
     }
+    public static void LoadScene()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public static void LoadScene(int index)
     {
         SceneManager.LoadScene(index);

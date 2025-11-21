@@ -51,9 +51,15 @@ public class EnemyAltarBehaviour : MonoBehaviour, IDamagable
     private float MainTimer = 0f;
     private float SpawningTimer = 0f;
     private InputSystem_Actions inputActions;
+    private TaskManager taskManager;
     void Awake()
     {
         HoverOverChecker = GetComponent<HoverOverInterfaceGiver>();
+        TaskManager potentialManager = FindAnyObjectByType<TaskManager>();
+        if (potentialManager != null)
+        {
+            taskManager = potentialManager;
+        }
         inputActions = new();
     }
     void Update()
@@ -94,11 +100,12 @@ public class EnemyAltarBehaviour : MonoBehaviour, IDamagable
             }
             DespawnEnemies();
             HoverOverChecker.LabelText = "Алтарь иследован, идите в другую точку.";
-            TaskManager potentialManager = FindAnyObjectByType<TaskManager>();
-            if (potentialManager != null)
-            {
-                potentialManager.ContinueTask(priority);
-            }
+            if (taskManager != null) 
+                taskManager.ContinueTask(priority);
+        } else
+        {
+            if (taskManager != null) 
+                taskManager.currentTaskMessage = "Ждите изучения алтаря. Осталось "+Mathf.Round(EnemiesSpawnDuration-MainTimer)+" секунды.";;
         }
         if (SpawningTimer >= EnemiesSpawnCooldown)
         {

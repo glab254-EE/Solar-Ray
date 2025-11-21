@@ -22,7 +22,7 @@ public class TaskManager : MonoBehaviour
     }
     [field:SerializeField]
     private List<GameplayTask> tasks = new();
-    internal string currentTaskMessage {get;private set;}= "";
+    public string currentTaskMessage {get;internal set;}= "";
     private void Awake()
     {
         ContinueTask(0);

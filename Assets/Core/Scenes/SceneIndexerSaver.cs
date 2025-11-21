@@ -41,7 +41,11 @@ public class SceneIndexerSaver : MonoBehaviour
       
         try
         {
-            string filepathJSON = Path.Combine(Application.persistentDataPath,"Resources",FileName+".json");
+            string filepathJSON = Path.Combine(Application.persistentDataPath,FileName+".json");
+            if (!File.Exists(filepathJSON))
+            {
+                File.Create(filepathJSON);
+            }
             File.WriteAllText(filepathJSON,gameScenesManager.AvailableLastSceneIndex.ToString());
         }
         catch (System.Exception)

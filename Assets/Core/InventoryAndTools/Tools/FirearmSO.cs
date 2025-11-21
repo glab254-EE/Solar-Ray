@@ -59,11 +59,17 @@ public class FirearmSO : ATool
 
         Vector3 vector = neworigin.forward;
         Vector3 newSpeed = 
-        (vector+Vector3.one
-        *Random.Range(
+        (vector+new Vector3(
+            Random.Range(
             Mathf.Deg2Rad*-MaxSpread,
             Mathf.Deg2Rad*MaxSpread
-            )
+            ),Random.Range(
+            Mathf.Deg2Rad*-MaxSpread,
+            Mathf.Deg2Rad*MaxSpread
+            ),Random.Range(
+            Mathf.Deg2Rad*-MaxSpread,
+            Mathf.Deg2Rad*MaxSpread
+            ))
         ).normalized
         *ProjectileVelocity.z;
 
