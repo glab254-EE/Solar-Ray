@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class LevelWinTrigger : MonoBehaviour
 {
@@ -11,7 +12,16 @@ public class LevelWinTrigger : MonoBehaviour
     private List<Transform> Positions;
     [field:SerializeField]
     private List<float> Durations;
-
+    [field:SerializeField]
+    private int NextLevel = 1;
+    void Start()
+    {
+        NextLevel = GameScenesManager.Instance.AvailableLastSceneIndex;
+        if (SceneManager.GetActiveScene().buildIndex == NextLevel)
+        {
+            GameScenesManager.Instance.AvailableLastSceneIndex ++;
+        }
+    }
     public void Trigger()
     {
         if (WinCameraObject != null)
@@ -41,6 +51,6 @@ public class LevelWinTrigger : MonoBehaviour
                 yield return moveTween.WaitForCompletion();
             }
         }
-        GameScenesManager.Instance.AvailableLastSceneIndex ++ ;
+        GameScenesManager.LoadScene(GameScenesManager.Instance.AvailableLastSceneIndex);
     }
 }

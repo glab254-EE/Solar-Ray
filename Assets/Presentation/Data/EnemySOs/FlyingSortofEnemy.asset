@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d30b7bcf38cac5543954015886c8f233, type: 3}
+  m_Name: FlyingSortofEnemy
+  m_EditorClassIdentifier: Assembly-CSharp::EnemySO
+  <MaxHealth>k__BackingField: 3
+  <MoveSpeed>k__BackingField: 2
+  <MoveAcceleration>k__BackingField: 15
+  <TurnSpeed>k__BackingField: 200
+  <StoppingDistance>k__BackingField: 15
+  <AttackDamage>k__BackingField: 1
+  <AttackDistance>k__BackingField: 15
+  <AttackDuration>k__BackingField: 2
+  <AttackCooldown>k__BackingField: 2
+  <AttackHurtboxSize>k__BackingField: {x: 1, y: 1, z: 1}
+  <EnemyVisualPrefab>k__BackingField: {fileID: 7611560821879777838, guid: c2563ecb8329d824c9ff87bcfcb94b84, type: 3}
+  <hitboxInfo>k__BackingField:
+    size: {x: 2, y: 2, z: 2}
+    offset: {x: 0, y: 15, z: 0}
+  <enemyProjectileInfo>k__BackingField:
+    speed: 20
+    spread: 0.2
+    projectileSO: {fileID: 11400000, guid: 585f0df0952704b4a861799aa4420844, type: 2}
+    projectile: {fileID: 7278422034884256268, guid: f03842a21d4a32d47896d7711e2b7a77, type: 3}

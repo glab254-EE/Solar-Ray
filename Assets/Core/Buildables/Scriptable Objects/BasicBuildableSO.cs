@@ -7,8 +7,4 @@ public class BasicBuildable : ABuildableSO
     public override GameObject Model { get; protected set; }
     [field:SerializeField]
     public override float BuildCost { get; protected set; }
-    public override void OnPlace(GameObject gameObject, ABuildableSO built)
-    {
-
-    }
 }

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class ContinueTaskODestroy : MonoBehaviour
+public class ContinueTaskODestroy : MonoBehaviour // OLD CODE, USE OnObjectDestroyInvoker INSTEAD.
 {
     [field:SerializeField]
     private int priority = 0; 

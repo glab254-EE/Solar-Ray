@@ -141,5 +141,19 @@ public class EnemyHandler : MonoBehaviour
         {
             invoker.TriggerHitboxAndDamage(AttackPoint);
         }
+        if (enemySO.enemyProjectileInfo.projectile != null && AttackPoint != null)
+        {
+            Vector3 direction = (currentTarget.position-AttackPoint.position).normalized;
+            ProjectileManager.Instance.ShootProjectile(AttackPoint.position,direction*enemySO.enemyProjectileInfo.speed,enemySO.enemyProjectileInfo.projectileSO,"Enemies");
+        }
+    }
+    internal void Fire()
+    {
+        if (isDead) return;
+        if (enemySO.enemyProjectileInfo.projectile != null && AttackPoint != null)
+        {
+            Vector3 direction = (currentTarget.position-AttackPoint.position).normalized;
+            ProjectileManager.Instance.ShootProjectile(AttackPoint.position,direction*enemySO.enemyProjectileInfo.speed,enemySO.enemyProjectileInfo.projectileSO,"Enemies");
+        }
     }
 }

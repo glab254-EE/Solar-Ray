@@ -10,6 +10,14 @@ public class ProjectileBehaviour : MonoBehaviour
     private string ExcludedTag;
     private AProjectileSO currentProjectileSO;
     private bool HitboxActive = false;
+    void OnDisable()
+    {
+        HitboxActive = false;
+        if (VisualObject != null)
+        {
+            Destroy(VisualObject);
+        }
+    }
     internal void Initialize(AProjectileSO aProjectileSO,string excludedTag)
     {
         ExcludedTag = excludedTag;
@@ -36,10 +44,7 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             var damagable = other.gameObject.GetComponent<IDamagable>();
             bool ToDestroy = currentProjectileSO.OnHit(damagable,other.ClosestPoint(transform.position));
-            if (ToDestroy)
-            {
-                DisableObject(); 
-            }
+            DisableObject(); 
         }
     }
     private IEnumerator LifetimeEnumerator()
@@ -53,6 +58,13 @@ public class ProjectileBehaviour : MonoBehaviour
         if (VisualObject != null)
         {
             Destroy(VisualObject);
+        }
+        if (transform.childCount > 0)
+        {
+            foreach(Transform child in transform)
+            {
+                Destroy(child.gameObject);
+            }
         }
         ObjectPoolManager.Instance.ReturnObject(ProjectileTag,gameObject);
     }

@@ -5,7 +5,7 @@ public class GeneralPurposeEventBehaviour : MonoBehaviour
 {
     public event Action connections;
 
-    internal void Trigger()
+    public void Trigger()
     {
         connections?.Invoke();
     }

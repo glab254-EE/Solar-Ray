@@ -4,6 +4,8 @@ using UnityEngine;
 public class HoverOverInterfaceGiver : MonoBehaviour
 {
     [field:SerializeField]
+    private float MaximumGivenDistance = 10f;
+    [field:SerializeField]
     private Transform CanvasTransform;
     [field:SerializeField]
     private GameObject GivenInterface;
@@ -11,11 +13,28 @@ public class HoverOverInterfaceGiver : MonoBehaviour
     internal string LabelText;
     internal bool IsHoveringOver {get;private set;} = false;
     private GameObject currentUI;
+    private Transform cameraTransform;
+    void Start()
+    {
+        cameraTransform = Camera.main.transform;
+    }
+    void FixedUpdate()
+    {
+        if (Vector3.Distance(transform.position,cameraTransform.position) <= MaximumGivenDistance
+        && Physics.Raycast(new Ray(cameraTransform.position,cameraTransform.forward),out RaycastHit hit,MaximumGivenDistance)
+        && hit.transform == transform)
+        {
+            OnMouseOver();
+        } else
+        {
+            OnMouseExit();
+        }
+    }
     void OnMouseOver()
     {
         if (CanvasTransform == null)
         {
-            CanvasTransform = FindAnyObjectByType<Canvas>().transform;
+            CanvasTransform = GameObject.FindGameObjectWithTag("MainCanvas").transform;
         }
         if (currentUI == null && GivenInterface != null)
         {
@@ -27,11 +46,11 @@ public class HoverOverInterfaceGiver : MonoBehaviour
         }
         IsHoveringOver = true;  
     }
-    private void OnMouseEnter()
+    void OnMouseEnter()
     {
         if (CanvasTransform == null)
         {
-            CanvasTransform = FindAnyObjectByType<Canvas>().transform;
+            CanvasTransform = GameObject.FindGameObjectWithTag("MainCanvas").transform;
         }
         if (currentUI == null && GivenInterface != null)
         {
@@ -43,9 +62,8 @@ public class HoverOverInterfaceGiver : MonoBehaviour
         }
         IsHoveringOver = true;
     }
-    private void OnMouseExit()
+    void OnMouseExit()
     {
-        Debug.Log("Exit");
         if (currentUI != null)
         {
             Destroy(currentUI);

@@ -18,8 +18,6 @@ public class TurretBehaviour : MonoBehaviour, IDamagable
     [field:SerializeField]
     private float ShootDelay = 0.5f;
     [field:SerializeField]
-    private GameObject ProjectileGO;
-    [field:SerializeField]
     private AProjectileSO projectileSO;
     [field:SerializeField]
     private GameObject EmmiterObject;

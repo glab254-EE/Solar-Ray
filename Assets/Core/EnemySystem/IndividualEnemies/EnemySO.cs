@@ -28,10 +28,20 @@ public class EnemySO : ScriptableObject
     public GameObject EnemyVisualPrefab { get; private set; }
     [field: SerializeField]
     public HitboxInfo hitboxInfo{get;private set;}
+    [field: SerializeField]
+    public EnemyProjectileInfo enemyProjectileInfo{get;private set;}
 }
 [Serializable]
 public struct HitboxInfo
 {
     public Vector3 size;
     public Vector3 offset;
+}
+[Serializable]
+public struct EnemyProjectileInfo
+{
+    public float speed ;
+    public float spread;
+    public AProjectileSO projectileSO;
+    public GameObject projectile;
 }

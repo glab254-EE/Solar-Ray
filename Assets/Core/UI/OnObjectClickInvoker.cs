@@ -6,11 +6,11 @@ using UnityEngine.InputSystem;
 public class OnObjectClickInvoker : MonoBehaviour
 {
     [field:SerializeField]
-    private HoverOverInterfaceGiver detector;
-    [field:SerializeField]
     private UnityEvent OnClickActions = new();
     [field:SerializeField]
     private float ActivationDelay = -1;
+    [field:SerializeField]
+    private HoverOverInterfaceGiver HoverOverChecker;
     private bool activated = false;
     private InputSystem_Actions actions;
     void Start()
@@ -19,11 +19,20 @@ public class OnObjectClickInvoker : MonoBehaviour
     }
     void Update()
     {
-        if (activated == false && detector.IsHoveringOver == true && actions.Player.Attack.IsPressed() == true)
+        if (HoverOverChecker.IsHoveringOver == true && Mouse.current.leftButton.isPressed && !activated)
+        {
+            OnMouseDown();
+        }
+    }
+    void OnMouseDown()
+    {
+        Debug.Log("Activated!");
+        if (activated == false)
         {
             OnClickActions?.Invoke();
             StartCoroutine(ActivationEnumerator());
         }
+        
     }
     private IEnumerator ActivationEnumerator()
     {

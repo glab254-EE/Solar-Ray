@@ -14,6 +14,8 @@ public class PlayerMovementBehaviour : MonoBehaviour
     private float velocityChangeSpeed = .2f;
     [SerializeField, Tooltip("Attribute for base jump power")]
     private float jumpPower = 15f;
+    [SerializeField]
+    private float JumpCheckDistance = .5f;
     internal bool IsMovementEnabled = true;
     private bool IsRunning = false;
     private PlayerMovementInvoker invoker;
@@ -68,16 +70,20 @@ public class PlayerMovementBehaviour : MonoBehaviour
         currentVelocity = Vector3.Lerp(currentVelocity, targetVelocity, velocityChangeSpeed);
         invoker.MovePlayer(currentVelocity);
     }
+    private bool IsGrounded() 
+    {
+        return Physics.Raycast(new Ray(
+                transform.position
+                + .999f 
+                * transform.localScale.y 
+                * Vector3.down, // to fix jumping
+                Vector3.down * JumpCheckDistance),
+
+             JumpCheckDistance, LayerMask.NameToLayer("Surface"));
+    }
     private void OnJump(InputAction.CallbackContext callbackContext)
     {
-        if (Physics.Raycast(
-            new Ray(
-                transform.position
-                + Vector3.down
-                * transform.localScale.y / 1.01f,
-                Vector3.down * .5f),
-
-             0.5f, LayerMask.NameToLayer("Surface")))
+        if (IsGrounded())
         {
             invoker.JumpPlayer(jumpPower);
         }
@@ -100,7 +106,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * transform.localScale.y, transform.position + Vector3.down * transform.localScale.y + new Vector3(0, -0.5f, 0));
+        Gizmos.DrawLine(transform.position + Vector3.down * transform.localScale.y, transform.position + Vector3.down * transform.localScale.y + new Vector3(0, -JumpCheckDistance, 0));
     }
 #endif
 }

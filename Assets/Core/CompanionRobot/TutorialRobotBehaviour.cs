@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+    using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
 
@@ -24,11 +24,11 @@ public class TutorialRobotBehaviour : MonoBehaviour
     }
     void Update()
     {
-        if (isPlayerPointingOver && !HoverOverInterface.activeInHierarchy)
+        if (Physics.Raycast(new Ray(PlayerTransform.position,PlayerTransform.forward),out RaycastHit hit)
+        && hit.transform == transform)
         {
             HoverOverInterface.SetActive(true);
-        }
-        else if (!isPlayerPointingOver && HoverOverInterface.activeInHierarchy)
+        } else
         {
             HoverOverInterface.SetActive(false);
         }

@@ -30,7 +30,6 @@ public class BuildingManager : MonoBehaviour
             return false;
         }
         GameObject newPlacedObject = Instantiate(builtObject.Model, position, rotation);
-        builtObject.OnPlace(newPlacedObject,builtObject);
         return true;
     }
 }
