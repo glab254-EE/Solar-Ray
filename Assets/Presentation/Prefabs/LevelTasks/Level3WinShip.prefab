@@ -12,6 +12,9 @@ GameObject:
   - component: {fileID: 8287974033474131375}
   - component: {fileID: 745221996807387835}
   - component: {fileID: 8876757727211858107}
+  - component: {fileID: 8142901055329172423}
+  - component: {fileID: 2744961623804851610}
+  - component: {fileID: 8965333574518825394}
   m_Layer: 0
   m_Name: Level3WinShip
   m_TagString: Untagged
@@ -27,8 +30,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 645838287103418280}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.6532814, y: 0.2705986, z: -0.27059853, w: -0.6532813}
-  m_LocalPosition: {x: 627.5, y: 48.75, z: 744.06586}
+  m_LocalRotation: {x: -0.68301296, y: -0.612372, z: -0.1830119, w: 0.3535542}
+  m_LocalPosition: {x: 595.5, y: 50.02042, z: 519.25}
   m_LocalScale: {x: 175.57097, y: 175.57097, z: 175.57097}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -105,6 +108,68 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::OnObjectClickInvoker
   OnClickActions:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 8142901055329172423}
+        m_TargetAssemblyTypeName: WinSceneHandler, Assembly-CSharp
+        m_MethodName: Trigger
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   ActivationDelay: -1
-  HoverOverChecker: {fileID: 0}
+  HoverOverChecker: {fileID: 2744961623804851610}
+--- !u!114 &8142901055329172423
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645838287103418280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dcd35135fdd926e46a218895790e5965, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::WinSceneHandler
+  SceneToLoad: 3
+--- !u!114 &2744961623804851610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645838287103418280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 61829217db65bba4c917763cbf3a61fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::HoverOverInterfaceGiver
+  MaximumGivenDistance: 10
+  CanvasTransform: {fileID: 0}
+  GivenInterface: {fileID: 0}
+  LabelText: 
+--- !u!65 &8965333574518825394
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 645838287103418280}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.15414079, y: 0.12480677, z: 0.14387038}
+  m_Center: {x: 0.057850342, y: -0.0006022672, z: -0.00455653}

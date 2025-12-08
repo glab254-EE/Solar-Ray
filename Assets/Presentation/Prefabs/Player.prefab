@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 218222193018064277}
   - component: {fileID: 3686517420957191492}
   - component: {fileID: 5760179001336313414}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerCamera
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -255,6 +255,7 @@ MonoBehaviour:
   baseRunSpeedMultiplier: 1.4
   velocityChangeSpeed: 0.1
   jumpPower: 5
+  JumpCheckDistance: 0.5
 --- !u!114 &9123643289597577556
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,9 +299,9 @@ GameObject:
   m_Component:
   - component: {fileID: 2531239786243498613}
   - component: {fileID: 281248846228347796}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: ArmsOrigin
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -332,4 +333,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16fbf90043e44942904f569d19e5839, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerToolBehaviour
+  playerHP: {fileID: 0}
   currentTool: {fileID: 0}
+  currentToolObject: {fileID: 0}

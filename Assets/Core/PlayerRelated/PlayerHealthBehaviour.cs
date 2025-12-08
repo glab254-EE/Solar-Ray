@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 
 public class PlayerHealthBehaviour : MonoBehaviour, IDamagable
@@ -22,7 +23,7 @@ public class PlayerHealthBehaviour : MonoBehaviour, IDamagable
         {
             Godded = true;
             goddedTimer -= Time.deltaTime;
-        } else
+        } else if (goddedTimer != float.NaN)
         {
             Godded = false;
             goddedTimer = 0;
@@ -39,6 +40,7 @@ public class PlayerHealthBehaviour : MonoBehaviour, IDamagable
             Godded = true;
             if (Health <= 0)
             {
+                goddedTimer = float.NaN;
                 OnPlayerDeath?.Invoke();
             } else
             {
@@ -46,5 +48,10 @@ public class PlayerHealthBehaviour : MonoBehaviour, IDamagable
             }
             return true;
         }
+    }
+    private IEnumerator DeathEnumerator()
+    {
+        yield return new WaitForSecondsRealtime(10);
+        GameScenesManager.LoadScene();
     }
 }

@@ -4,7 +4,7 @@ public class WinSceneHandler : MonoBehaviour
 {
     [field:SerializeField]
     private int SceneToLoad;
-    internal void Trigger()
+    public void Trigger()
     {
         GameScenesManager.LoadScene(SceneToLoad);
     }

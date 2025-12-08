@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5405140351924056258}
   m_Layer: 0
   m_Name: ShootPoint
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4848,7 +4848,7 @@ GameObject:
   - component: {fileID: 3792095386167106331}
   m_Layer: 0
   m_Name: Weapon1
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -5034,6 +5034,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: e6b8cf8f6a0493446ad9128dbfb12084, type: 3}
       propertyPath: m_Name
       value: Blaster
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: e6b8cf8f6a0493446ad9128dbfb12084, type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

@@ -14298,6 +14298,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 5608577372510804893, guid: 4e3b3c8559232224c823f14eacfd3d1e, type: 3}
+      propertyPath: NextScene
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5608577372510804893, guid: 4e3b3c8559232224c823f14eacfd3d1e, type: 3}
       propertyPath: tasks.Array.size
       value: 5
       objectReference: {fileID: 0}

@@ -20,8 +20,7 @@ public class ObjectPoolManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Destroy(gameObject);
-            return;
+            Destroy(Instance.gameObject);
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);

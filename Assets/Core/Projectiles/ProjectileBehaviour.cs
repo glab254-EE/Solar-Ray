@@ -44,6 +44,7 @@ public class ProjectileBehaviour : MonoBehaviour
         {
             var damagable = other.gameObject.GetComponent<IDamagable>();
             bool ToDestroy = currentProjectileSO.OnHit(damagable,other.ClosestPoint(transform.position));
+            if (!ToDestroy) return;
             DisableObject(); 
         }
     }

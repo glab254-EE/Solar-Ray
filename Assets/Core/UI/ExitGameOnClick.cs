@@ -7,7 +7,8 @@ public class ExitGameOnClick : MonoBehaviour
 
     void Start()
     {
-        gameObject.GetComponent<Button>().onClick.AddListener(ExitGame);
+        Button button = GetComponent<Button>();
+        button.onClick.AddListener(ExitGame);
     }
     void ExitGame()
     {
