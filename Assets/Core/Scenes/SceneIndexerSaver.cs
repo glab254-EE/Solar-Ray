@@ -10,7 +10,6 @@ public class SceneIndexerSaver : MonoBehaviour
     private GameScenesManager gameScenesManager;
     void Awake() // as this only saves data from other classes, and dont recieve any, singleton is not used here.
     {
-        DontDestroyOnLoad(gameObject);
         gameScenesManager = GameScenesManager.Instance;
         gameScenesManager.AvailableLastSceneIndex = LoadLastsceneFromFile();
     }

@@ -36,7 +36,7 @@ public class PlayerHealthBehaviour : MonoBehaviour, IDamagable
             return false;
         } else
         {
-            Health -= damage;
+            Health = Math.Clamp(Health-damage,0,MaxHealth);
             Godded = true;
             if (Health <= 0)
             {

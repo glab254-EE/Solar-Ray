@@ -135,7 +135,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dcd35135fdd926e46a218895790e5965, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::WinSceneHandler
-  SceneToLoad: 3
+  SceneToLoad: 4
 --- !u!114 &2744961623804851610
 MonoBehaviour:
   m_ObjectHideFlags: 0

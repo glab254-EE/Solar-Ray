@@ -9,8 +9,6 @@ public class EnemyAltarBehaviour : MonoBehaviour, IDamagable
     [field: SerializeField]
     private HoverOverInterfaceGiver HoverOverChecker;
     [field: SerializeField]
-    private GameObject ScannerGO;
-    [field: SerializeField]
     private Terrain terrain;
     [field: SerializeField]
     private Transform playerTransform;
@@ -84,21 +82,13 @@ public class EnemyAltarBehaviour : MonoBehaviour, IDamagable
         }
         if (!spawningActive || Health <= 0) return;
         HoverOverChecker.LabelText = "Алтарь иследуется, остаётся: "+Mathf.Round(EnemiesSpawnDuration-MainTimer)+" секунды.";
-        if (ScannerGO != null && !ScannerGO.activeInHierarchy)
-        {
-            ScannerGO.SetActive(true);
-        }
         MainTimer += Time.deltaTime;
         SpawningTimer += Time.deltaTime;
         if (MainTimer >= EnemiesSpawnDuration)
         {
             spawningActive = false;
             WaveFinished = true;
-            if (ScannerGO != null && !ScannerGO.activeInHierarchy)
-            {
-                ScannerGO.SetActive(false);
-            }
-            DespawnEnemies();
+            StartCoroutine(DespawnEnemies());
             HoverOverChecker.LabelText = "Алтарь иследован, идите в другую точку.";
             if (taskManager != null) 
                 taskManager.ContinueTask(priority);
@@ -131,7 +121,7 @@ public class EnemyAltarBehaviour : MonoBehaviour, IDamagable
             }
             do
             {
-                yield return new WaitForEndOfFrame();
+                yield return new WaitForSecondsRealtime(0.1f);
             } while (shownText != null);
             Destroy(shownText);
         }

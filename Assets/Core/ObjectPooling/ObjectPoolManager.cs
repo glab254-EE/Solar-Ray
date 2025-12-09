@@ -20,14 +20,22 @@ public class ObjectPoolManager : MonoBehaviour
     {
         if (Instance != null)
         {
-            Destroy(Instance.gameObject);
+            Instance.SetUpPools();
+            Destroy(gameObject);
+            return;
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
         SetUpPools();
     }
-    private void SetUpPools()
+    private void ClearLists()
     {
+        currentPooledObjects = new();
+        pooledObjectParents = new();
+    }
+    public void SetUpPools()
+    {
+        ClearLists();
         foreach(ObjectPool pool in pools)
         {
             if (pool.PooledObjectTag == "" || pool.Prefab == null) continue;
@@ -35,7 +43,7 @@ public class ObjectPoolManager : MonoBehaviour
             pooledObjectParents.Add(pool.PooledObjectTag,parent);
 
             Queue<GameObject> newPool= new();
-
+            Debug.Log("Starting loop.");
             for (int i = 0; i < pool.StartSize; i++)
             {
                 GameObject newObject = Instantiate(pool.Prefab,parent.transform);

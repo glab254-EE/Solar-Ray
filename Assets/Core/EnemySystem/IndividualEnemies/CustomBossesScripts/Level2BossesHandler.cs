@@ -74,7 +74,7 @@ public class Level2BossesHandler : MonoBehaviour
             {
                 currentTarget = newtarget.transform;
             }
-            if (isAttacking) return;
+            if (isAttacking || currentTarget == null) return;
             transform.rotation = Quaternion.LookRotation(currentTarget.position-transform.position);
             if (AttackCooldown < 0)
             {
@@ -137,7 +137,7 @@ public class Level2BossesHandler : MonoBehaviour
     internal void Fire()
     {
         if (isDead) return;
-        if (enemySO.enemyProjectileInfo.projectile != null && AttackPoint != null)
+        if (currentTarget != null && enemySO.enemyProjectileInfo.projectile != null && AttackPoint != null)
         {
             Vector3 direction = (currentTarget.position-AttackPoint.position).normalized;
             Vector3 RandomizedVector = new Vector3(Random.Range(-enemySO.enemyProjectileInfo.spread,enemySO.enemyProjectileInfo.spread),Random.Range(-enemySO.enemyProjectileInfo.spread,enemySO.enemyProjectileInfo.spread),Random.Range(-enemySO.enemyProjectileInfo.spread,enemySO.enemyProjectileInfo.spread));

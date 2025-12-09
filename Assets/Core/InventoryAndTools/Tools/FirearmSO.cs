@@ -41,7 +41,6 @@ public class FirearmSO : ATool
         if (toolTransform == null || OnCooldown == true) yield break;
         Transform neworigin = toolTransform.Find(shootingOriginName) ?? toolTransform;
         Debug.Log("Shooting loop start, finding origin");
-        OnCooldown = true;
 
         if (toolTransform.TryGetComponent(out Animator animator))
         {

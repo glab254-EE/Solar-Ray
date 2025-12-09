@@ -16,16 +16,16 @@ MonoBehaviour:
   <MoveSpeed>k__BackingField: 3
   <MoveAcceleration>k__BackingField: 1.5
   <TurnSpeed>k__BackingField: 180
-  <StoppingDistance>k__BackingField: 1
+  <StoppingDistance>k__BackingField: 4
   <AttackDamage>k__BackingField: 3
-  <AttackDistance>k__BackingField: 3
+  <AttackDistance>k__BackingField: 5
   <AttackDuration>k__BackingField: 5
   <AttackCooldown>k__BackingField: 2
   <AttackHurtboxSize>k__BackingField: {x: 1, y: 2, z: 1}
   <EnemyVisualPrefab>k__BackingField: {fileID: 8009140257101788836, guid: 64ef1c63af0384a4b88bbe616fb559c2, type: 3}
   <hitboxInfo>k__BackingField:
     size: {x: 1.4, y: 0, z: 0}
-    offset: {x: 0, y: 1.7, z: 0}
+    offset: {x: 0, y: 1, z: 0}
   <enemyProjectileInfo>k__BackingField:
     speed: 0
     spread: 0

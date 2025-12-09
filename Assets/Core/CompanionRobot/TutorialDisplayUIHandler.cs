@@ -36,6 +36,10 @@ public class TutorialDisplayUIHandler : MonoBehaviour
         if (frames.Count > CurrentFrame && CurrentFrame >= 0)
         {
             frames[CurrentFrame].gameObject.SetActive(true);
+            if (frames[CurrentFrame].gameObject.TryGetComponent(out AudioSource source))
+            {
+                source.Play();
+            }
         }
     }
     private void OnOption1Press(InputAction.CallbackContext _)

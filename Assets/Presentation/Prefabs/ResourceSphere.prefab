@@ -129,7 +129,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 65
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -154,4 +154,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::ResourceSphereBehaviour
   <ResourceGain>k__BackingField: 1
   <ResourceDeathTime>k__BackingField: 60
+  HealingPower: 5
   PlayerTag: Player

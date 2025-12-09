@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
 using System.Collections;
+using System.Collections.Generic;
 
 public class PlayerToolBehaviour : MonoBehaviour
 {
@@ -10,6 +11,7 @@ public class PlayerToolBehaviour : MonoBehaviour
     private ATool currentTool;
     [field: SerializeField]
     private GameObject currentToolObject = null;
+    private Dictionary<FirearmSO,bool> Cooldowns = new();
     private InputSystem_Actions inputActions;
     private bool equiped;
     private bool lefftMouseButtonHeld = false;
@@ -38,13 +40,29 @@ public class PlayerToolBehaviour : MonoBehaviour
         {
             if (currentTool is FirearmSO firearm)
             {
-                StartCoroutine(firearm.FirearmShoot(currentToolObject));
+                if (!Cooldowns.ContainsKey(firearm) || !Cooldowns[firearm])
+                {
+                    StartCoroutine(firearm.FirearmShoot(currentToolObject));       
+                    StartCoroutine(CooldownEnumerator(firearm));             
+                }
             }
         }
     }
     void OnDestroy()
     {
         inputActions.Player.Attack.Disable();
+    }
+    private IEnumerator CooldownEnumerator(FirearmSO tool)
+    {
+        if (!Cooldowns.ContainsKey(tool))
+        {
+            Cooldowns.Add(tool,true);
+        } else
+        {
+            Cooldowns[tool] = true;
+        }
+        yield return new WaitForSeconds(tool.FireCooldown);
+        Cooldowns[tool] = false;
     }
     private void ConnectInputs()
     {

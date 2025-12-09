@@ -327,6 +327,7 @@ MonoBehaviour:
   - 5
   - 25
   - 15
+  NextLevel: 2
 --- !u!1001 &3635896797367618574
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -100,7 +100,8 @@ public class CustomEnemyAltarBehaviour1 : MonoBehaviour, IDamagable
             {
                 ScannerGO.SetActive(false);
             }
-            DespawnEnemies();
+
+            StartCoroutine(DespawnEnemies());
             HoverOverChecker.LabelText = "Алтарь иследован, идите в другую точку.";
             if (taskManager != null) 
                 taskManager.ContinueTask(priority);

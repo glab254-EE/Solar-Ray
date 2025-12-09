@@ -74,7 +74,8 @@ public class CustomBoss1 : MonoBehaviour
     {
         if (isEnabled)
         {
-            GameObject? newtarget = detector.GetFirstEnemy();
+            if (isDead) return;
+            GameObject newtarget = detector.GetFirstEnemy();
             if (newtarget != null && newtarget.transform == playerTransform && currentTarget != newtarget.transform)
             {
                 if (gameObject.TryGetComponent(out AudioSource source))
@@ -83,14 +84,12 @@ public class CustomBoss1 : MonoBehaviour
                 }
                 currentTarget = playerTransform;
             }
-            if (!isAttacking && currentTarget != null)
+            if (isAttacking) return;
+            if (currentTarget != null)
             {        
                 if (Vector3.Distance(transform.position,currentTarget.position) > EnemySO.AttackDistance)
                 {
-                    if (Vector3.Distance(agent.destination,currentTarget.position) > 0.1f)
-                    {
-                        agent.SetDestination(currentTarget.position);                          
-                    }                  
+                    agent.SetDestination(currentTarget.position); 
                 } else
                 {
                     if (agent.destination != transform.position)

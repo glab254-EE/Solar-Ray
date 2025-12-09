@@ -12,8 +12,8 @@ PlayerSettings:
   targetDevice: 2
   useOnDemandResources: 0
   accelerometerFrequency: 60
-  companyName: DefaultCompany
-  productName: Interplanetary Defense
+  companyName: Pixel Titans
+  productName: Solar Ray
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -144,10 +144,7 @@ PlayerSettings:
   visionOSBundleVersion: 1.0
   tvOSBundleVersion: 1.0
   bundleVersion: 0.1
-  preloadedAssets:
-  - {fileID: 4306187837152373932, guid: 898118f16e1328b47aeda4c2c2da4c71, type: 3}
-  - {fileID: 4306187837152373932, guid: 21b17cbd9cfa0504591a4073e951b9fe, type: 3}
-  - {fileID: 8805084903354760909, guid: 2df732ff610010f40a90723f0aabfaf3, type: 3}
+  preloadedAssets: []
   metroInputSource: 0
   wsaTransparentSwapchain: 0
   m_HolographicPauseOnTrackingLoss: 1
@@ -385,7 +382,13 @@ PlayerSettings:
   - serializedVersion: 2
     m_BuildTarget: tvOS
     m_EncodingQuality: 1
-  m_BuildTargetGroupHDRCubemapEncodingQuality: []
+  - serializedVersion: 2
+    m_BuildTarget: Standalone
+    m_EncodingQuality: 1
+  m_BuildTargetGroupHDRCubemapEncodingQuality:
+  - serializedVersion: 2
+    m_BuildTarget: Standalone
+    m_EncodingQuality: 1
   m_BuildTargetGroupLightmapSettings: []
   m_BuildTargetGroupLoadStoreDebugModeSettings: []
   m_BuildTargetNormalMapEncoding:
@@ -687,6 +690,7 @@ PlayerSettings:
   platformArchitecture: {}
   scriptingBackend:
     Android: 1
+    Standalone: 0
   il2cppCompilerConfiguration: {}
   il2cppCodeGeneration: {}
   il2cppStacktraceInformation: {}

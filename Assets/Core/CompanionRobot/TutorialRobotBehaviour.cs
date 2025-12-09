@@ -47,7 +47,7 @@ public class TutorialRobotBehaviour : MonoBehaviour
     }
     void OnTriggerExit(Collider other)
     {
-        if (other.gameObject.transform == PlayerTransform)
+        if (other.gameObject.CompareTag("Player"))
         {
             MoveToNextWaypoint();
         }

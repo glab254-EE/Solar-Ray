@@ -45,6 +45,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
         inputActions.Player.Move.Disable();
         inputActions.Player.Sprint.Disable();
         inputActions.Player.Disable();
+        inputActions.Disable();
     }
     private void OnPlayerDeath()
     {
@@ -74,7 +75,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     {
         return Physics.Raycast(new Ray(
                 transform.position
-                + .999f 
+                + .9f 
                 * transform.localScale.y 
                 * Vector3.down, // to fix jumping
                 Vector3.down * JumpCheckDistance),
@@ -106,7 +107,7 @@ public class PlayerMovementBehaviour : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Gizmos.color = Color.red;
-        Gizmos.DrawLine(transform.position + Vector3.down * transform.localScale.y, transform.position + Vector3.down * transform.localScale.y + new Vector3(0, -JumpCheckDistance, 0));
+        Gizmos.DrawLine(transform.position + .9f * transform.localScale.y * Vector3.down, transform.position + Vector3.down * transform.localScale.y + new Vector3(0, -JumpCheckDistance, 0));
     }
 #endif
 }
