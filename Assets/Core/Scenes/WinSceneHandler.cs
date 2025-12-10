@@ -6,6 +6,7 @@ public class WinSceneHandler : MonoBehaviour
     private int SceneToLoad;
     public void Trigger()
     {
+        Cursor.lockState = CursorLockMode.None;
         GameScenesManager.LoadScene(SceneToLoad);
     }
 }

@@ -110,6 +110,7 @@ GameObject:
   - component: {fileID: 4446307120756597852}
   - component: {fileID: 9123643289597577556}
   - component: {fileID: 3094366595895063321}
+  - component: {fileID: 8730611375662204911}
   m_Layer: 6
   m_Name: Player
   m_TagString: Player
@@ -289,6 +290,20 @@ MonoBehaviour:
   - {fileID: 11400000, guid: cff1a879a65ce9143a01692c9e1e0e26, type: 2}
   - {fileID: 11400000, guid: f367c0f6abd899548981ded45995f125, type: 2}
   playerToolBehaviour: {fileID: 281248846228347796}
+--- !u!114 &8730611375662204911
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2019209155223524522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2d30c32047416ef4eaf7a7c4909cbd38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerDeathGUIGiver
+  UIParent: {fileID: 0}
+  givenUI: {fileID: 1084897773268105182, guid: 2e166a5d9c15d314a95f0ebada539fb7, type: 3}
 --- !u!1 &5065754086839209145
 GameObject:
   m_ObjectHideFlags: 0

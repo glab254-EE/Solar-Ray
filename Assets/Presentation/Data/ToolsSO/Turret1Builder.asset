@@ -13,11 +13,18 @@ MonoBehaviour:
   m_Name: Turret1Builder
   m_EditorClassIdentifier: Assembly-CSharp::BuilderSO
   <ViewModel>k__BackingField: {fileID: 5719394923191557946, guid: 9b1b42c94f30554478556ae2089bf6ce, type: 3}
-  <ToolSprite>k__BackingField: {fileID: 21300000, guid: 751aa1b6637101946b2fdbb7aa27d6ad, type: 3}
+  <ToolSprite>k__BackingField: {fileID: 21300000, guid: fea69d5c563acc2409152da14a6672bb, type: 3}
   <builtObject>k__BackingField: {fileID: 11400000, guid: 2759234966361f647868be48be2cab30, type: 2}
   <BuildMaxDistance>k__BackingField: 5
   <BuildAreasTag>k__BackingField: BuildAreas
   <ToolName>k__BackingField: "\u0422\u0443\u0440\u0440\u0435\u043B\u044C 1"
-  <ToolDescription>k__BackingField: "\u0418\u043D\u0441\u0442\u0440\u0443\u043C\u0435\u043D\u0442
-    \u0434\u043B\u044F \u0441\u043E\u0437\u0434\u0430\u043D\u0438\u044F \u0442\u0443\u0440\u0435\u043B\u044F
-    \u043E\u0434\u0438\u043D."
+  <ToolDescription>k__BackingField: "\u041B\u0430\u0437\u0435\u0440\u043D\u0430\u044F
+    \u043F\u0443\u0448\u043A\u0430 - \u0430\u0442\u0430\u043A\u0443\u0435\u0442 \u043B\u0430\u0437\u0435\u0440\u043D\u044B\u043C
+    \u0448\u043A\u0432\u0430\u043B\u043E\u043C, \u0438\u043C\u0435\u0435\u0442 300
+    \u0435\u0434\u0438\u043D\u0438\u0446 \u0437\u0434\u043E\u0440\u043E\u0432\u044C\u044F,
+    \u0443\u0440\u043E\u0432\u0435\u043D\u044C \u0437\u0430\u0449\u0438\u0442\u044B
+    - \u043D\u0438\u0437\u043A\u0438\u0439, \u043E\u0442\u0434\u0430\u0447\u0430
+    - \u0441\u0440\u0435\u0434\u043D\u044F\u044F, \u043D\u0443\u0436\u0434\u0430\u0435\u0442\u0441\u044F
+    \u0432 \u043F\u0435\u0440\u0435\u0437\u0430\u0440\u044F\u0434\u043A\u0435, \u043C\u043E\u0436\u043D\u043E
+    \u0443\u043B\u0443\u0447\u0448\u0430\u0442\u044C \u0438 \u0441\u0442\u0430\u0432\u0438\u0442\u044C
+    \u0432 \u0434\u0440\u0443\u0433\u043E\u043C \u043C\u0435\u0441\u0442\u0435."

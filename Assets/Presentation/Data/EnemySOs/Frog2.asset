@@ -18,7 +18,7 @@ MonoBehaviour:
   <TurnSpeed>k__BackingField: 180
   <StoppingDistance>k__BackingField: 1
   <AttackDamage>k__BackingField: 4
-  <AttackDistance>k__BackingField: 3
+  <AttackDistance>k__BackingField: 4
   <AttackDuration>k__BackingField: 3
   <AttackCooldown>k__BackingField: 6
   <AttackHurtboxSize>k__BackingField: {x: 1, y: 2, z: 1}
@@ -26,3 +26,8 @@ MonoBehaviour:
   <hitboxInfo>k__BackingField:
     size: {x: 0.7, y: 0, z: 0}
     offset: {x: 0, y: 0.75, z: 0}
+  <enemyProjectileInfo>k__BackingField:
+    speed: 0
+    spread: 0
+    projectileSO: {fileID: 0}
+    projectile: {fileID: 0}

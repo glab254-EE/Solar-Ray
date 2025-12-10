@@ -247,7 +247,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06ecf6a6e19a85f498195f6233bb39c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::EnemyHandler
-  EnemySO: {fileID: 11400000, guid: e006b9e95b575534daa21795fd5bb7bd, type: 2}
+  enemySO: {fileID: 0}
   ResourceObject: {fileID: 4303467227177226646, guid: 46f31d888558ebe4982ac3ed924758ae, type: 3}
   detector: {fileID: 6001353549962435394}
 --- !u!1 &5228398533038129358
@@ -302,7 +302,7 @@ SphereCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 15
+  m_Radius: 10
   m_Center: {x: 0, y: 0.5, z: 0}
 --- !u!114 &6001353549962435394
 MonoBehaviour:
@@ -344,7 +344,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7841553273659822381}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -10,44 +10,34 @@ public class PlayerHealthBehaviour : MonoBehaviour, IDamagable
     internal float MaxHealth { get; private set; } = 10f;
     [field:SerializeField]
     internal float Health { get; private set; }
-    internal bool Godded { get; private set; } = false;
+    internal bool Dead {get;private set;} = false;
     internal event Action OnPlayerDeath;
-    private float goddedTimer;
     void Start()
     {
         Health = MaxHealth;
     }
-    void Update()
+    void FixedUpdate()
     {
-        if (goddedTimer > 0)
+        if (!Dead && Health <= 0)
         {
-            Godded = true;
-            goddedTimer -= Time.deltaTime;
-        } else if (goddedTimer != float.NaN)
-        {
-            Godded = false;
-            goddedTimer = 0;
+            Dead = true;
+            OnDeath();
         }
     }
     public bool TryDamage(float damage)
     {
-        if (Godded)
+        Health = Math.Clamp(Health-damage,0,MaxHealth);
+        if (Health <= 0&&!Dead)
         {
-            return false;
-        } else
-        {
-            Health = Math.Clamp(Health-damage,0,MaxHealth);
-            Godded = true;
-            if (Health <= 0)
-            {
-                goddedTimer = float.NaN;
-                OnPlayerDeath?.Invoke();
-            } else
-            {
-                goddedTimer = takeDamageCooldown;                
-            }
-            return true;
+            OnDeath();
         }
+        return true;
+    }
+    private void OnDeath()
+    {
+        Dead = true;
+        OnPlayerDeath?.Invoke();
+        StartCoroutine(DeathEnumerator());
     }
     private IEnumerator DeathEnumerator()
     {

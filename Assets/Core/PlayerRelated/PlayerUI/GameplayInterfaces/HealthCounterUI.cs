@@ -16,7 +16,7 @@ public class HealthCounterUI : MonoBehaviour
     }
     void Update()
     {
-        int newindex = Mathf.RoundToInt((playerHealth.Health+1)/HealthSprites.Count);
+        int newindex = Mathf.CeilToInt((playerHealth.Health+1)/HealthSprites.Count);
         if (newindex >= 0 && newindex < HealthSprites.Count)
         {
             Sprite newsprite = HealthSprites[newindex];

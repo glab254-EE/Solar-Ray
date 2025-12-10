@@ -1,15 +1,20 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BuildingManager : MonoBehaviour
 {
     internal static BuildingManager instance;
+    internal static float Money {get;private set;} = new();
     internal float Resources {get;private set;} = new();
+    internal event Action OnBuildEvent;
     void Awake()
     {
         if (instance != null)
         {
             Destroy(gameObject);
+            return;
         }
         instance = this;
     }
@@ -22,14 +27,20 @@ public class BuildingManager : MonoBehaviour
     internal bool TryPlaceObject(ABuildableSO builtObject,Vector3 position, Quaternion rotation)
     {
         if (builtObject == null || position == null || rotation == null) return false;
-        if (builtObject.BuildCost <= Resources)
+        float cost = builtObject.BuildCost;
+        if (SceneManager.GetActiveScene().buildIndex == 0)
         {
-            Resources -= builtObject.BuildCost;
+            cost = 1;
+        }
+        if (cost<= Resources)
+        {
+            Resources -= cost;
         } else
         {
             return false;
         }
         GameObject newPlacedObject = Instantiate(builtObject.Model, position, rotation);
+        OnBuildEvent?.Invoke();
         return true;
     }
 }

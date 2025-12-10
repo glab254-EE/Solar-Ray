@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d30b7bcf38cac5543954015886c8f233, type: 3}
-  m_Name: Frog1
+  m_Name: TutorialEnemy
   m_EditorClassIdentifier: Assembly-CSharp::EnemySO
-  <MaxHealth>k__BackingField: 4
-  <MoveSpeed>k__BackingField: 5
-  <MoveAcceleration>k__BackingField: 1
-  <TurnSpeed>k__BackingField: 125
+  <MaxHealth>k__BackingField: 3
+  <MoveSpeed>k__BackingField: 3
+  <MoveAcceleration>k__BackingField: 0.5
+  <TurnSpeed>k__BackingField: 90
   <StoppingDistance>k__BackingField: 1
-  <AttackDamage>k__BackingField: 5
+  <AttackDamage>k__BackingField: 2.5
   <AttackDistance>k__BackingField: 4
   <AttackDuration>k__BackingField: 3
   <AttackCooldown>k__BackingField: 7.5

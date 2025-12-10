@@ -13,12 +13,8 @@ public class TaskManager : MonoBehaviour
         public int Priority;
         [field:SerializeField]
         public GameObject AddedObject;
-        public GameplayTask(string msg, GameObject obj,int priority)
-        {
-            Message = msg;
-            AddedObject = obj;
-            Priority = priority;
-        }
+        [field:SerializeField]
+        public List<GameObject> ToRemove;
     }
     [field:SerializeField]
     private List<GameplayTask> tasks = new();
@@ -28,6 +24,10 @@ public class TaskManager : MonoBehaviour
     private void Awake()
     {
         ContinueTask(0);
+    }
+    private void OnDestroy()
+    {
+        tasks = null;
     }
     internal void ContinueTask(int priority)
     {
@@ -41,6 +41,13 @@ public class TaskManager : MonoBehaviour
             }           
             currentTaskMessage = nexttask.Message;
             tasks.RemoveAt(0);
+            foreach(GameObject gameObject in nexttask.ToRemove)
+            {
+                if (gameObject != null)
+                {
+                    Destroy(gameObject);
+                }
+            }
         } else
         {
             if (NextScene != -1)

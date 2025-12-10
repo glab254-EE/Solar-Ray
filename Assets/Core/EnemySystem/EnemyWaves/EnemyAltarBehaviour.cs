@@ -142,8 +142,8 @@ public class EnemyAltarBehaviour : MonoBehaviour, IDamagable
     {
         if (EnemyTemplate == null || Enemies == null) return;
 
-        EnemySO randomEnemy = Enemies[UnityEngine.Random.Range(0, Enemies.Count)];
-        float RandomDirection = UnityEngine.Random.Range(0.00f, 360.00f);
+        EnemySO randomEnemy = Enemies[Random.Range(0, Enemies.Count)];
+        float RandomDirection = Random.Range(0.00f, 360.00f);
 
         float X = Mathf.Sin(RandomDirection) * EnemiesSpawnRange;
         float Y = Mathf.Cos(RandomDirection) * EnemiesSpawnRange;
@@ -151,10 +151,11 @@ public class EnemyAltarBehaviour : MonoBehaviour, IDamagable
         Vector3 newposition = transform.position + new Vector3(X, 0, Y);
         newposition.y = terrain.SampleHeight(newposition);
 
-        GameObject newenemy = Instantiate(EnemyTemplate, newposition, Quaternion.identity);
-        if (newenemy.TryGetComponent<EnemyHandler>(out EnemyHandler handler))
+        GameObject newenemy = Instantiate(EnemyTemplate, newposition, Quaternion.FromToRotation(newposition,transform.position));
+        if (newenemy.TryGetComponent(out EnemyHandler handler))
         {
             handler.enemySO = randomEnemy;
+            handler.currentTarget = transform;
         }
         spawnedEnemies.Add(newenemy);
     }

@@ -8459,11 +8459,11 @@ MonoBehaviour:
   EnemyTemplate: {fileID: 2386157444323608273, guid: e450e90f466ecac4d92e4f6651af753e, type: 3}
   Enemies:
   - {fileID: 11400000, guid: c089684dd66bd234395d65056d61f83b, type: 2}
-  EnemiesSpawnRange: 20
+  EnemiesSpawnRange: 15
   EnemiesSpawnCooldown: 2
   EnemiesSpawnDuration: 120
   EnemiesDespawnTime: 0
-  <Health>k__BackingField: 200
+  <Health>k__BackingField: 60
   <DamageTaken>k__BackingField: 0.5
   AltarDeathDamagePersecond: 300
   UIParent: {fileID: 6275783230622091673}
@@ -9797,7 +9797,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36aae31181eb43540a1193211300a189, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 115.41
+      value: 124.9
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36aae31181eb43540a1193211300a189, type: 3}
       propertyPath: m_LocalPosition.y
@@ -9805,7 +9805,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36aae31181eb43540a1193211300a189, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 129.68
+      value: 127.6
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 36aae31181eb43540a1193211300a189, type: 3}
       propertyPath: m_LocalRotation.w
@@ -9907,11 +9907,11 @@ MonoBehaviour:
   EnemyTemplate: {fileID: 2386157444323608273, guid: e450e90f466ecac4d92e4f6651af753e, type: 3}
   Enemies:
   - {fileID: 11400000, guid: c089684dd66bd234395d65056d61f83b, type: 2}
-  EnemiesSpawnRange: 20
+  EnemiesSpawnRange: 15
   EnemiesSpawnCooldown: 3
   EnemiesSpawnDuration: 120
   EnemiesDespawnTime: 0
-  <Health>k__BackingField: 300
+  <Health>k__BackingField: 60
   <DamageTaken>k__BackingField: 0.5
   AltarDeathDamagePersecond: 300
   UIParent: {fileID: 6275783230622091673}
@@ -10937,11 +10937,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: c089684dd66bd234395d65056d61f83b, type: 2}
   - {fileID: 11400000, guid: 97f9238cb50fe754796ef58936c0d379, type: 2}
   - {fileID: 11400000, guid: 97f9238cb50fe754796ef58936c0d379, type: 2}
-  EnemiesSpawnRange: 20
+  EnemiesSpawnRange: 15
   EnemiesSpawnCooldown: 3
   EnemiesSpawnDuration: 120
   EnemiesDespawnTime: 0
-  <Health>k__BackingField: 300
+  <Health>k__BackingField: 60
   <DamageTaken>k__BackingField: 0.5
   AltarDeathDamagePersecond: 300
   UIParent: {fileID: 6275783230622091673}
@@ -14190,6 +14190,22 @@ PrefabInstance:
       propertyPath: playerHealth
       value: 
       objectReference: {fileID: 1867345064}
+    - target: {fileID: 3298901220452566703, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
+      propertyPath: m_Spacing.x
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298901220452566703, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
+      propertyPath: m_Spacing.y
+      value: 15
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298901220452566703, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
+      propertyPath: m_CellSize.x
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 3298901220452566703, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
+      propertyPath: m_CellSize.y
+      value: 175
+      objectReference: {fileID: 0}
     - target: {fileID: 4946573696564268378, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
       propertyPath: PlayerHotbar
       value: 
@@ -14234,13 +14250,17 @@ PrefabInstance:
       propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6752987220211776758, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -46.723083
+      objectReference: {fileID: 0}
     - target: {fileID: 7856062983926661509, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: 0.0019415751
       objectReference: {fileID: 0}
     - target: {fileID: 7856062983926661509, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.0010785393
+      value: 0.0008606017
       objectReference: {fileID: 0}
     - target: {fileID: 8005581561200328826, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
       propertyPath: m_Color.a
@@ -14259,7 +14279,8 @@ PrefabInstance:
       value: 0.21176468
       objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 5357469710301153993, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 514773520703788863, guid: afea6410762a69e4d8950294827fd6b6, type: 3}
       insertIndex: 0

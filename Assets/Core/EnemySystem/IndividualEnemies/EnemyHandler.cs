@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.SceneManagement;
 
 [RequireComponent(typeof(NavMeshAgent)),RequireComponent(typeof(EnemyHealthHandler))]
 public class EnemyHandler : MonoBehaviour
@@ -12,13 +13,13 @@ public class EnemyHandler : MonoBehaviour
     [field: SerializeField]
     private DetectorColliderBehaviour detector;
     internal Transform AttackPoint;
+    internal Transform currentTarget;
     internal bool isEnabled = false;
     internal bool isAttacking = false;
     internal float AttackCooldown = 0;
     private EnemyHealthHandler healthHandler;
     private NavMeshAgent agent;
     private Transform playerTransform;
-    private Transform currentTarget;
     private GameObject enemyVisual;
     private GeneralPurposeEventBehaviour AttackEvent;
     private bool isDead = false;
@@ -68,18 +69,16 @@ public class EnemyHandler : MonoBehaviour
 
         isEnabled = true;
 
-        currentTarget = playerTransform;
+        if (SceneManager.GetActiveScene().buildIndex != 1)
+        {
+        currentTarget = playerTransform;            
+        }
     }
     void Update()
     {
         if (isEnabled)
         {
             if (isDead) return;
-            GameObject newtarget = detector.GetFirstEnemy();
-            if (newtarget != null && newtarget.transform != currentTarget)
-            {
-                currentTarget = newtarget.transform;
-            }
             if (isAttacking) return;
             if (Vector3.Distance(transform.position,currentTarget.position) > enemySO.AttackDistance)
             {
@@ -97,6 +96,11 @@ public class EnemyHandler : MonoBehaviour
                 {
                     AttackCooldown -= Time.deltaTime;
                 }
+            }
+            GameObject newtarget = detector.GetFirstEnemy();
+            if (newtarget != null && newtarget.transform != currentTarget)
+            {
+                currentTarget = newtarget.transform;
             }
         }
     }
