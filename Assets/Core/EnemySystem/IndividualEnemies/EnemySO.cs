@@ -30,6 +30,10 @@ public class EnemySO : ScriptableObject
     public HitboxInfo hitboxInfo{get;private set;}
     [field: SerializeField]
     public EnemyProjectileInfo enemyProjectileInfo{get;private set;}
+    [field: SerializeField]
+    public AudioClip AttackAudioClip = null;
+    [field: SerializeField]
+    public AudioClip DamagedClip = null;
 }
 [Serializable]
 public struct HitboxInfo

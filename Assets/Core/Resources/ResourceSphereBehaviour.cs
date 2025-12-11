@@ -7,7 +7,7 @@ public class ResourceSphereBehaviour : MonoBehaviour
     [field:SerializeField]
     public float ResourceDeathTime{get;private set;} = 20;
     [field:SerializeField]
-    private float HealingPower = 5f;
+    private float HealingPower = 20f;
     [field:SerializeField]
     private string PlayerTag;
     void Start()

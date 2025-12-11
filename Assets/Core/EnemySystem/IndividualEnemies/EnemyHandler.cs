@@ -11,6 +11,10 @@ public class EnemyHandler : MonoBehaviour
     [field: SerializeField]
     private GameObject ResourceObject;
     [field: SerializeField]
+    private GameObject MoneyObject;
+    [field: SerializeField]
+    private float MoneyChanceOutof100 = 20;
+    [field: SerializeField]
     private DetectorColliderBehaviour detector;
     internal Transform AttackPoint;
     internal Transform currentTarget;
@@ -58,6 +62,10 @@ public class EnemyHandler : MonoBehaviour
         healthHandler = GetComponent<EnemyHealthHandler>();
         healthHandler.Initialize(enemySO.MaxHealth);
         healthHandler.OnDeath += OnDeath;
+        healthHandler.OnDamaged += () =>
+        {
+            PlaySound(enemySO.DamagedClip);
+        };
 
         agent = GetComponent<NavMeshAgent>();
         agent.speed = enemySO.MoveSpeed;
@@ -71,7 +79,7 @@ public class EnemyHandler : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex != 1)
         {
-        currentTarget = playerTransform;            
+            currentTarget = playerTransform;            
         }
     }
     void Update()
@@ -104,18 +112,36 @@ public class EnemyHandler : MonoBehaviour
             }
         }
     }
-
+    private void PlaySound(AudioClip clip)
+    {
+        if (gameObject.TryGetComponent(out AudioSource source) && clip != null)
+        {
+            source.clip = clip;
+            source.Play();
+        }   
+    }
     private void OnDeath()
     {
         if (isDead) return;
         isDead = true;
         isEnabled = false;
-        Instantiate(ResourceObject,transform.position+Vector3.up,Quaternion.identity);
+        if (ResourceObject != null)
+        {
+            Instantiate(ResourceObject,transform.position+Vector3.up*2,Quaternion.identity);            
+        }
+        if (MoneyObject != null)
+        {
+            if (MoneyChanceOutof100 == default || Random.Range(0f,100f) <= MoneyChanceOutof100)
+            {
+                Instantiate(MoneyObject,transform.position+Vector3.up*2,Quaternion.identity);     
+            }
+        }
         StartCoroutine(DeathEnumerator());
     }
     IEnumerator AttackEnumerator()
     {
         isAttacking = true;
+        PlaySound(enemySO.AttackAudioClip);
         AttackCooldown = enemySO.AttackCooldown;
         if (enemyVisual.TryGetComponent(out Animator a))
         {

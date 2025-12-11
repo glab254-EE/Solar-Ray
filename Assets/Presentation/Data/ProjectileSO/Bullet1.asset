@@ -16,5 +16,5 @@ MonoBehaviour:
   <LifeTime>k__BackingField: 10
   <VisualObject>k__BackingField: {fileID: 5643109538376260710, guid: e65ec3f38cbc6ce4d84717ea3192a491, type: 3}
   <HitboxInfo>k__BackingField:
-    size: {x: 0, y: 0, z: 0}
+    size: {x: 0.1, y: 0.5, z: 0.1}
     offset: {x: 0, y: 0, z: 0}

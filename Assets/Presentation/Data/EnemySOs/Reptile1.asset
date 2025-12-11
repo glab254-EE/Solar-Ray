@@ -31,3 +31,5 @@ MonoBehaviour:
     spread: 0
     projectileSO: {fileID: 0}
     projectile: {fileID: 0}
+  AttackAudioClip: {fileID: 8300000, guid: 6192eafbea2a54e4fadd2829ba828a62, type: 3}
+  DamagedClip: {fileID: 8300000, guid: 8112cd7e222482a4c9f9145cb37bc254, type: 3}

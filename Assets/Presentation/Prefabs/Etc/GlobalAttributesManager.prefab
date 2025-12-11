@@ -1,0 +1,68 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1693993106944720528
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3837439115582835140}
+  - component: {fileID: 5091565912455550083}
+  m_Layer: 0
+  m_Name: GlobalAttributesManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &3837439115582835140
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693993106944720528}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 931.5778, y: 41.07416, z: 299.69943}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5091565912455550083
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1693993106944720528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a6d939f03d32db4bbb17c02b8bf82be, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GlobalAttributesManager
+  Attributes:
+  - <Name>k__BackingField: TURRET1_DAMAGE
+    <Value>k__BackingField: 2
+    <Incerment>k__BackingField: 1
+  - <Name>k__BackingField: TURRET2_DAMAGE
+    <Value>k__BackingField: 0.1
+    <Incerment>k__BackingField: 0.1
+  - <Name>k__BackingField: TURRET3DAMAGE
+    <Value>k__BackingField: 2
+    <Incerment>k__BackingField: 2
+  - <Name>k__BackingField: TURRET1COST
+    <Value>k__BackingField: 2
+    <Incerment>k__BackingField: 2
+  - <Name>k__BackingField: TURRET2COST
+    <Value>k__BackingField: 2
+    <Incerment>k__BackingField: 2
+  - <Name>k__BackingField: TURRET3COST
+    <Value>k__BackingField: 3
+    <Incerment>k__BackingField: 2
+  - <Name>k__BackingField: GUN2COST
+    <Value>k__BackingField: 10
+    <Incerment>k__BackingField: 0

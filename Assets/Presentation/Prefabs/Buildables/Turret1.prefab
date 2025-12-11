@@ -5184,6 +5184,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61829217db65bba4c917763cbf3a61fd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HoverOverInterfaceGiver
+  MaximumGivenDistance: 10
   CanvasTransform: {fileID: 0}
   GivenInterface: {fileID: 4137487873517018955, guid: bb8b2b80baada6b479d425c8e6cc8015, type: 3}
   LabelText: 
@@ -5231,12 +5232,13 @@ MonoBehaviour:
   MuzzlePoint: {fileID: 5313807148052273525}
   detector: {fileID: 5839436009084654349}
   MaxAmmunition: 10
-  TurningSpeed: 25
+  TurningSpeed: 35
   ShootDelay: 2
-  ProjectileGO: {fileID: 6309457368946091771, guid: 1fe3ce9250d1cac458e3bb07c84dce0b, type: 3}
   projectileSO: {fileID: 11400000, guid: 2a592362e6262564085ec560d492b319, type: 2}
   EmmiterObject: {fileID: 2130426760602312190}
   EmitCount: 25
+  ProjectileDamageAttribute: TURRET1_DAMAGE
+  ProjectileDefaultDamage: 2
   ProjectileSpeed: 15
   RequiredAccuracy: 0.5
   <Health>k__BackingField: 300

@@ -24,6 +24,10 @@ public class TurretBehaviour : MonoBehaviour, IDamagable
     [field:SerializeField]
     private int EmitCount = 15;
     [field:SerializeField]
+    private string ProjectileDamageAttribute;
+    [field:SerializeField]
+    private float ProjectileDefaultDamage = 2;
+    [field:SerializeField]
     private float ProjectileSpeed;
     [field:SerializeField]
     private float RequiredAccuracy = 0.1f;
@@ -34,7 +38,9 @@ public class TurretBehaviour : MonoBehaviour, IDamagable
     Transform target;
     void Start()
     {
+        UpdateAttributes();
         Ammunition = MaxAmmunition;
+        GlobalAttributesManager.Instance.OnAttributeChange += UpdateAttributes;
     }
     void Update()
     {
@@ -48,6 +54,13 @@ public class TurretBehaviour : MonoBehaviour, IDamagable
         if (target != null)
         {
             TurretLoop();
+        }
+    }
+    private void UpdateAttributes()
+    {
+        if (GlobalAttributesManager.Instance.TryGetAttribute(out float newDamage, ProjectileDamageAttribute, ProjectileDefaultDamage))
+        {
+            projectileSO.Damage = newDamage;    
         }
     }
     private void ReloadCheckLoop()

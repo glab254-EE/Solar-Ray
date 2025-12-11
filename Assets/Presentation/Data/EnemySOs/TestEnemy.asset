@@ -21,4 +21,15 @@ MonoBehaviour:
   <AttackDistance>k__BackingField: 10
   <AttackDuration>k__BackingField: 6
   <AttackCooldown>k__BackingField: 4
-  <AttackHitboxSize>k__BackingField: {x: 1, y: 1, z: 1}
+  <AttackHurtboxSize>k__BackingField: {x: 1, y: 1, z: 1}
+  <EnemyVisualPrefab>k__BackingField: {fileID: 0}
+  <hitboxInfo>k__BackingField:
+    size: {x: 0, y: 0, z: 0}
+    offset: {x: 0, y: 0, z: 0}
+  <enemyProjectileInfo>k__BackingField:
+    speed: 0
+    spread: 0
+    projectileSO: {fileID: 0}
+    projectile: {fileID: 0}
+  AttackAudioClip: {fileID: 0}
+  DamagedClip: {fileID: 8300000, guid: 5355d4c0ad4502f40a189555a19811fe, type: 3}

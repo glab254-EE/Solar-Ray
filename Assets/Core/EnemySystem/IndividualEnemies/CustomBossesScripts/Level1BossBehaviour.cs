@@ -6,90 +6,77 @@ using UnityEngine.AI;
 public class CustomBoss1 : MonoBehaviour
 {
     [field: SerializeField]
-    internal EnemySO EnemySO;
+    internal EnemySO enemySO;
     [field: SerializeField]
     private GameObject ResourceObject;
     [field: SerializeField]
-    private DetectorColliderBehaviour detector;
+    private GameObject MoneyObject;
     [field: SerializeField]
+    private float MoneyChanceOutof100 = 20;
+    [field: SerializeField]
+    private DetectorColliderBehaviour detector;
+    [field:SerializeField]
     private GameObject enemyVisual;
     internal Transform AttackPoint;
+    internal Transform currentTarget;
     internal bool isEnabled = false;
     internal bool isAttacking = false;
     internal float AttackCooldown = 0;
     private EnemyHealthHandler healthHandler;
     private NavMeshAgent agent;
     private Transform playerTransform;
-    private Transform currentTarget;
     private GeneralPurposeEventBehaviour AttackEvent;
     private bool isDead = false;
+    private EnemyInvoker invoker;
     void Start()
     {
-        if (EnemySO == null)
+        if (enemySO == null)
         {
             Debug.LogWarning("Enemy failed to initialize due of no enemy SO.");
             return;
         }
         playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-        
-        if (EnemySO.EnemyVisualPrefab != null)
-        {
-            if (enemyVisual == null)
-            {
-                enemyVisual = Instantiate(EnemySO.EnemyVisualPrefab, transform);                
-            }
-            AttackPoint = enemyVisual.transform.Find("Attack Point");
-            AttackEvent = enemyVisual.GetComponent<GeneralPurposeEventBehaviour>();
-            if (AttackEvent != null)
-            {
-                AttackEvent.connections += Attack;
-            }
-        }
 
         if (gameObject.TryGetComponent(out BoxCollider collider))
         {
-            collider.size = EnemySO.hitboxInfo.size;
-            collider.center = EnemySO.hitboxInfo.offset;
+            collider.size = enemySO.hitboxInfo.size;
+            collider.center = enemySO.hitboxInfo.offset;
         } 
         if (gameObject.TryGetComponent(out SphereCollider collider2))
         {
-            collider2.radius = EnemySO.hitboxInfo.size.x;
-            collider2.center = EnemySO.hitboxInfo.offset;
+            collider2.radius = enemySO.hitboxInfo.size.x;
+            collider2.center = enemySO.hitboxInfo.offset;
         } 
 
         healthHandler = GetComponent<EnemyHealthHandler>();
-        healthHandler.Initialize(EnemySO.MaxHealth);
+        healthHandler.Initialize(enemySO.MaxHealth);
         healthHandler.OnDeath += OnDeath;
+        healthHandler.OnDamaged += () =>
+        {
+            PlaySound(enemySO.DamagedClip);
+        };
 
         agent = GetComponent<NavMeshAgent>();
-        agent.speed = EnemySO.MoveSpeed;
-        agent.angularSpeed = EnemySO.TurnSpeed;
-        agent.acceleration = EnemySO.MoveAcceleration;
-        agent.stoppingDistance = EnemySO.StoppingDistance;
+        agent.speed = enemySO.MoveSpeed;
+        agent.angularSpeed = enemySO.TurnSpeed;
+        agent.acceleration = enemySO.MoveAcceleration;
+        agent.stoppingDistance = enemySO.StoppingDistance;
+
+        invoker = new(enemySO);
 
         isEnabled = true;
-
     }
     void Update()
     {
         if (isEnabled)
         {
             if (isDead) return;
-            GameObject newtarget = detector.GetFirstEnemy();
-            if (newtarget != null && newtarget.transform == playerTransform && currentTarget != newtarget.transform)
-            {
-                if (gameObject.TryGetComponent(out AudioSource source))
-                {
-                    source.Play();
-                }
-                currentTarget = playerTransform;
-            }
             if (isAttacking) return;
             if (currentTarget != null)
-            {        
-                if (Vector3.Distance(transform.position,currentTarget.position) > EnemySO.AttackDistance)
+            {
+                if (Vector3.Distance(transform.position,currentTarget.position) > enemySO.AttackDistance)
                 {
-                    agent.SetDestination(currentTarget.position); 
+                    agent.SetDestination(currentTarget.position);   
                 } else
                 {
                     if (agent.destination != transform.position)
@@ -103,22 +90,46 @@ public class CustomBoss1 : MonoBehaviour
                     {
                         AttackCooldown -= Time.deltaTime;
                     }
-                }
+                }                
+            }
+            GameObject newtarget = detector.GetFirstEnemy();
+            if (newtarget != null && newtarget.transform != currentTarget)
+            {
+                currentTarget = newtarget.transform;
             }
         }
     }
-    void OnDeath()
+    private void PlaySound(AudioClip clip)
+    {
+        if (gameObject.TryGetComponent(out AudioSource source) && clip != null)
+        {
+            source.clip = clip;
+            source.Play();
+        }   
+    }
+    private void OnDeath()
     {
         if (isDead) return;
         isDead = true;
         isEnabled = false;
-        Instantiate(ResourceObject,transform.position+Vector3.up,Quaternion.identity);
+        if (ResourceObject != null)
+        {
+            Instantiate(ResourceObject,transform.position+Vector3.up*2,Quaternion.identity);            
+        }
+        if (MoneyObject != null)
+        {
+            if (MoneyChanceOutof100 == default || Random.Range(0f,100f) <= MoneyChanceOutof100)
+            {
+                Instantiate(MoneyObject,transform.position+Vector3.up*2,Quaternion.identity);     
+            }
+        }
         StartCoroutine(DeathEnumerator());
     }
     IEnumerator AttackEnumerator()
     {
         isAttacking = true;
-        AttackCooldown = EnemySO.AttackCooldown;
+        PlaySound(enemySO.AttackAudioClip);
+        AttackCooldown = enemySO.AttackCooldown;
         if (enemyVisual.TryGetComponent(out Animator a))
         {
             a.SetTrigger("attack");
@@ -127,7 +138,7 @@ public class CustomBoss1 : MonoBehaviour
         {
             Debug.Log("Attacked without animator");
         }
-        yield return new WaitForSeconds(EnemySO.AttackDuration);
+        yield return new WaitForSeconds(enemySO.AttackDuration);
         isAttacking = false;   
     }
     IEnumerator DeathEnumerator()
@@ -137,22 +148,29 @@ public class CustomBoss1 : MonoBehaviour
         {
             a.SetTrigger("death");
         }
-        yield return new WaitForSeconds(10);
+        yield return new WaitForSeconds(2.5f);
         Destroy(gameObject);
     }
     internal void Attack()
     {
-        if (EnemySO.AttackHurtboxSize != null && AttackPoint != null)
+        if (isDead) return;
+        if (enemySO.AttackHurtboxSize != null && AttackPoint != null)
         {
-            RaycastHit[] hits = Physics.BoxCastAll(AttackPoint.position,EnemySO.AttackHurtboxSize/2,AttackPoint.forward);
-            foreach (RaycastHit _hit in hits)
-            {
-                Collider hit = _hit.collider;
-                if (hit.CompareTag("Player") && hit.transform.gameObject.TryGetComponent(out IDamagable damagable))
-                {
-                    damagable.TryDamage(EnemySO.AttackDamage);
-                }
-            }
+            invoker.TriggerHitboxAndDamage(AttackPoint);
+        }
+        if (enemySO.enemyProjectileInfo.projectile != null && AttackPoint != null)
+        {
+            Vector3 direction = (currentTarget.position-AttackPoint.position).normalized;
+            ProjectileManager.Instance.ShootProjectile(AttackPoint.position,direction*enemySO.enemyProjectileInfo.speed,enemySO.enemyProjectileInfo.projectileSO,"Enemies");
+        }
+    }
+    internal void Fire()
+    {
+        if (isDead) return;
+        if (enemySO.enemyProjectileInfo.projectile != null && AttackPoint != null)
+        {
+            Vector3 direction = (currentTarget.position-AttackPoint.position).normalized;
+            ProjectileManager.Instance.ShootProjectile(AttackPoint.position,direction*enemySO.enemyProjectileInfo.speed,enemySO.enemyProjectileInfo.projectileSO,"Enemies");
         }
     }
 }

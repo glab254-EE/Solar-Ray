@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class TaskManager : MonoBehaviour
 {
@@ -21,13 +22,19 @@ public class TaskManager : MonoBehaviour
     [field:SerializeField]
     private int NextScene =-1;
     public string currentTaskMessage {get;internal set;}= "";
+    private int CurrentScene = -1;
     private void Awake()
     {
+        if (CurrentScene != -1 && CurrentScene != SceneManager.GetActiveScene().buildIndex)
+        {
+            return;
+        }
         ContinueTask(0);
+        CurrentScene = SceneManager.GetActiveScene().buildIndex;
     }
     private void OnDestroy()
     {
-        tasks = null;
+        tasks = new();
     }
     internal void ContinueTask(int priority)
     {

@@ -10,6 +10,10 @@ public class PlayerHealthBehaviour : MonoBehaviour, IDamagable
     internal float MaxHealth { get; private set; } = 10f;
     [field:SerializeField]
     internal float Health { get; private set; }
+    [field:SerializeField]
+    private AudioClip HitClip;
+    [field:SerializeField]
+    private AudioClip DeathClip;
     internal bool Dead {get;private set;} = false;
     internal event Action OnPlayerDeath;
     void Start()
@@ -30,6 +34,18 @@ public class PlayerHealthBehaviour : MonoBehaviour, IDamagable
         if (Health <= 0&&!Dead)
         {
             OnDeath();
+            if (gameObject.TryGetComponent(out AudioSource source) && DeathClip != null)
+            {
+                source.clip = DeathClip;
+                source.Play();
+            }
+        } else
+        {
+            if (gameObject.TryGetComponent(out AudioSource source) && HitClip != null)
+            {
+                source.clip = HitClip;
+                source.Play();
+            }
         }
         return true;
     }

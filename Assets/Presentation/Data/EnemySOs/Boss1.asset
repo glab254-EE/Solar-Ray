@@ -26,3 +26,10 @@ MonoBehaviour:
   <hitboxInfo>k__BackingField:
     size: {x: 7, y: 0, z: 0}
     offset: {x: 0, y: 2, z: 0}
+  <enemyProjectileInfo>k__BackingField:
+    speed: 0
+    spread: 0
+    projectileSO: {fileID: 0}
+    projectile: {fileID: 0}
+  AttackAudioClip: {fileID: 0}
+  DamagedClip: {fileID: 8300000, guid: 5355d4c0ad4502f40a189555a19811fe, type: 3}

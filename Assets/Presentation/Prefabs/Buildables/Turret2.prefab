@@ -335,11 +335,13 @@ MonoBehaviour:
   MuzzlePoint: {fileID: 8154194719713572848}
   detector: {fileID: 4321889588135076356}
   MaxAmmunition: -1
-  TurningSpeed: 5
+  TurningSpeed: 20
   ShootDelay: 0.1
   projectileSO: {fileID: 11400000, guid: c4cbfc47157d6ec41bdb74046ea5cc31, type: 2}
   EmmiterObject: {fileID: 4935896861362570321}
   EmitCount: 25
+  ProjectileDamageAttribute: TURRET2_DAMAGE
+  ProjectileDefaultDamage: 0.1
   ProjectileSpeed: 25
   RequiredAccuracy: 0.5
   <Health>k__BackingField: 100

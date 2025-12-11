@@ -13,6 +13,6 @@ public class ResourceCounter : MonoBehaviour
     }
     void Update()
     {
-        textLabel.text = manager.Resources.ToString()+" Ресурсов";
+        textLabel.text = manager.Resources.ToString();
     }
 }

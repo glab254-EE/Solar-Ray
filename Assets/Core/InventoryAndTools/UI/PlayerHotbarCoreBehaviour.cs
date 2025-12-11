@@ -16,7 +16,10 @@ public class PlayerHotbarCoreBehaviour : MonoBehaviour
     void Awake()
     {
         backpack = BackpackStaticClass.Instance;
-        backpack.ResetBackpack(startingPack);
+        if (backpack.backpack == null || backpack.backpack.Count == 0)
+        {
+            backpack.ResetBackpack(startingPack);            
+        }
     }
     void Start()
     {

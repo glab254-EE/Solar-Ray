@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class BuildingManager : MonoBehaviour
 {
     internal static BuildingManager instance;
-    internal static float Money {get;private set;} = new();
+    internal static float Money {get;private set;} = 0;
     internal float Resources {get;private set;} = new();
     internal event Action OnBuildEvent;
     void Awake()
@@ -23,6 +23,21 @@ public class BuildingManager : MonoBehaviour
         if (sphere == null) return;
         Resources += sphere.ResourceGain;
         Destroy(sphere.gameObject);
+    }
+    internal void OnMoneyPickup(MoneySphere sphere)
+    {
+        if (sphere == null) return;
+        Money += sphere.MoneyGain;
+        Destroy(sphere.gameObject);
+    }
+    internal bool TryBuyUpgrade(float cost)
+    {
+        if (Money >= cost)
+        {
+            Money -= cost;
+            return true;
+        }
+        return false;
     }
     internal bool TryPlaceObject(ABuildableSO builtObject,Vector3 position, Quaternion rotation)
     {

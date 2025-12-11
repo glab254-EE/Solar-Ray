@@ -1485,6 +1485,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 4.0147924
       objectReference: {fileID: 0}
+    - target: {fileID: 1762744973840183392, guid: efa8b9e3b172fba4d9669f4026504f2e, type: 3}
+      propertyPath: enemySO
+      value: 
+      objectReference: {fileID: 11400000, guid: a86891545f94ffd448fceb1404143437, type: 2}
+    - target: {fileID: 1762744973840183392, guid: efa8b9e3b172fba4d9669f4026504f2e, type: 3}
+      propertyPath: MoneyObject
+      value: 
+      objectReference: {fileID: 4303467227177226646, guid: 0801b77ab713c1541a1720ca08c943be, type: 3}
+    - target: {fileID: 1762744973840183392, guid: efa8b9e3b172fba4d9669f4026504f2e, type: 3}
+      propertyPath: ResourceObject
+      value: 
+      objectReference: {fileID: 4303467227177226646, guid: 0801b77ab713c1541a1720ca08c943be, type: 3}
     - target: {fileID: 1916846983126342170, guid: efa8b9e3b172fba4d9669f4026504f2e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
       value: 67.2346
@@ -1568,6 +1580,18 @@ PrefabInstance:
     - target: {fileID: 4109099804170428139, guid: efa8b9e3b172fba4d9669f4026504f2e, type: 3}
       propertyPath: Priority
       value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109099804170428139, guid: efa8b9e3b172fba4d9669f4026504f2e, type: 3}
+      propertyPath: MaxDistance
+      value: 175
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109099804170428139, guid: efa8b9e3b172fba4d9669f4026504f2e, type: 3}
+      propertyPath: m_PlayOnAwake
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4109099804170428139, guid: efa8b9e3b172fba4d9669f4026504f2e, type: 3}
+      propertyPath: spreadCustomCurve.m_Curve.Array.data[0].value
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4220593000815258318, guid: efa8b9e3b172fba4d9669f4026504f2e, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

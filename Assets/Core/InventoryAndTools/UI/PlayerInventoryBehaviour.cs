@@ -60,7 +60,7 @@ public class PlayerInventoryBehaviour : MonoBehaviour
         {
             foreach (Transform ch in PrefabsParent)
             {
-                Destroy(ch);
+                Destroy(ch.gameObject);
             }
         }
 
